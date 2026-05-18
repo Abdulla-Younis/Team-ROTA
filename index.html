@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Rota</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F2EE;
+    --surface: #FFFFFF;
+    --surface2: #FAFAF8;
+    --border: #E5E2DB;
+    --border2: #D0CCC3;
+    --text: #1A1917;
+    --text2: #6B6760;
+    --text3: #9E9A93;
+    --wfo-bg: #E8F5E2;
+    --wfo-text: #2D6A1F;
+    --wfo-border: #A8D896;
+    --wfh-bg: #FDECEA;
+    --wfh-text: #9B2A2A;
+    --wfh-border: #F5A8A3;
+    --accent: #2D6A1F;
+    --accent-soft: #E8F5E2;
+    --fn-delivery: #1A4A8A;
+    --fn-delivery-bg: #EBF2FC;
+    --fn-oracle: #7A3B00;
+    --fn-oracle-bg: #FEF0E3;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: var(--shadow);
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: var(--text); display: flex; align-items: center; justify-content: center;
+  }
+  .logo svg { width: 18px; height: 18px; fill: white; }
+  .header h1 { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+
+  /* Main */
+  .main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 12px; margin-bottom: 2rem; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .stat-label { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .stat-val { font-size: 26px; font-weight: 600; color: var(--text); letter-spacing: -1px; font-family: 'DM Mono', monospace; }
+  .stat-val.green { color: var(--wfo-text); }
+  .stat-val.red { color: var(--wfh-text); }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem;
+  }
+  .week-nav { display: flex; align-items: center; gap: 8px; }
+  .week-label {
+    font-size: 14px; font-weight: 500; color: var(--text);
+    min-width: 220px; text-align: center;
+    font-family: 'DM Mono', monospace;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border2); background: var(--surface);
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .15s; box-shadow: var(--shadow);
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--surface2); border-color: var(--text3); }
+  .btn:active { transform: scale(0.98); }
+  .btn svg { width: 15px; height: 15px; }
+  .btn-icon { padding: 7px 10px; }
+  .btn-green { background: var(--accent); color: white; border-color: var(--accent); }
+  .btn-green:hover { opacity: 0.88; background: var(--accent); }
+  .btn-red { background: #9B2A2A; color: white; border-color: #9B2A2A; }
+  .btn-red:hover { opacity: 0.88; }
+  .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* Add form */
+  .add-panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem; box-shadow: var(--shadow);
+    display: none; animation: slideDown .18s ease;
+  }
+  .add-panel.show { display: block; }
+  @keyframes slideDown { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+  .add-panel h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+  .form-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+  .form-group label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; }
+  .form-group input, .form-group select {
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 8px 11px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border2); background: var(--surface);
+    color: var(--text); height: 36px; outline: none;
+    transition: border-color .15s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+
+  /* Table */
+  .table-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow-md); overflow-x: auto;
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  thead { background: var(--surface2); }
+  thead th {
+    padding: 10px 12px; font-size: 11px; font-weight: 600;
+    color: var(--text3); text-transform: uppercase; letter-spacing: .06em;
+    border-bottom: 1px solid var(--border); text-align: center;
+  }
+  thead th:first-child, thead th:nth-child(2) { text-align: left; }
+  thead tr:last-child th { font-size: 10px; font-weight: 500; color: var(--text3); padding: 5px 12px; font-family: 'DM Mono', monospace; letter-spacing: 0; }
+
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--surface2); }
+  td { padding: 9px 12px; font-size: 13px; vertical-align: middle; }
+  .td-fn { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .td-fn-delivery { color: var(--fn-delivery); }
+  .td-fn-oracle { color: var(--fn-oracle); }
+  .td-name { font-weight: 500; font-size: 13px; }
+  .td-center { text-align: center; }
+  .td-count { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--text2); text-align: center; }
+
+  /* Slot badges */
+  .slot {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm); padding: 4px 11px;
+    font-size: 11px; font-weight: 600; min-width: 54px;
+    letter-spacing: .04em; cursor: pointer;
+    transition: transform .12s, opacity .12s;
+    border: 1px solid transparent;
+    font-family: 'DM Mono', monospace;
+  }
+  .slot:hover { transform: scale(1.08); opacity: .82; }
+  .slot-wfo { background: var(--wfo-bg); color: var(--wfo-text); border-color: var(--wfo-border); }
+  .slot-wfh { background: var(--wfh-bg); color: var(--wfh-text); border-color: var(--wfh-border); }
+  .slot-empty { background: var(--surface2); color: var(--text3); border-color: var(--border); cursor: pointer; }
+  .slot-empty:hover { border-color: var(--text3); }
+
+  /* Summary row */
+  .summary-row td {
+    background: var(--surface2); font-size: 11px; font-weight: 600;
+    color: var(--text3); text-align: center; border-top: 2px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    padding: 8px 12px;
+  }
+  .summary-row td:first-child { text-align: left; font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; font-family: 'DM Sans', sans-serif; }
+  .summary-row td:nth-child(2) { text-align: left; }
+
+  /* Divider row */
+  .fn-divider td { background: var(--bg); padding: 0; height: 4px; border: none; }
+
+  /* Delete btn */
+  .del-btn {
+    width: 26px; height: 26px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border2); background: transparent;
+    color: var(--text3); cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center;
+    transition: all .15s; font-size: 13px;
+  }
+  .del-btn:hover { background: var(--wfh-bg); color: var(--wfh-text); border-color: var(--wfh-border); }
+  .del-btn svg { width: 13px; height: 13px; }
+
+  /* Legend */
+  .legend { display: flex; gap: 20px; margin-top: 1.25rem; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); }
+  .legend-dot { width: 28px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; font-family: 'DM Mono', monospace; letter-spacing: .04em; }
+  .legend-dot.wfo { background: var(--wfo-bg); color: var(--wfo-text); border: 1px solid var(--wfo-border); }
+  .legend-dot.wfh { background: var(--wfh-bg); color: var(--wfh-text); border: 1px solid var(--wfh-border); }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; backdrop-filter: blur(2px);
+    animation: fadeIn .15s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  .modal {
+    background: var(--surface); border-radius: 14px;
+    border: 1px solid var(--border); padding: 1.5rem;
+    width: 320px; max-width: 95vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    animation: scaleIn .18s ease;
+  }
+  @keyframes scaleIn { from { transform: scale(0.94); opacity:0; } to { transform: scale(1); opacity:1; } }
+  .modal h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .modal p { font-size: 12px; color: var(--text2); margin-bottom: 1.25rem; font-family: 'DM Mono', monospace; }
+  .status-btns { display: flex; gap: 10px; margin-bottom: 1.25rem; }
+  .status-btn {
+    flex: 1; padding: 14px 10px; border-radius: var(--radius);
+    border: 1.5px solid var(--border); cursor: pointer;
+    text-align: center; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 600; background: var(--surface2);
+    color: var(--text2); transition: all .15s;
+  }
+  .status-btn .sb-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+  .status-btn:hover { border-color: var(--text3); background: var(--surface); }
+  .status-btn.sel-wfo { border-color: var(--wfo-border); background: var(--wfo-bg); color: var(--wfo-text); }
+  .status-btn.sel-wfh { border-color: var(--wfh-border); background: var(--wfh-bg); color: var(--wfh-text); }
+  .modal-actions { display: flex; gap: 8px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(10px);
+    background: var(--text); color: white; border-radius: 30px;
+    padding: 9px 20px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all .25s; pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2); white-space: nowrap;
+    z-index: 200;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* Responsive */
+  @media(max-width:600px) {
+    .main { padding: 1.25rem 1rem; }
+    .header { padding: 0 1rem; }
+    .week-label { min-width: 150px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+    </div>
+    <h1>Team Rota</h1>
+  </div>
+  <div class="header-right">
+    <button class="btn" onclick="exportCSV()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export CSV
+    </button>
+    <button class="btn btn-green" onclick="toggleAddForm()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add member
+    </button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="stats" id="stats"></div>
+
+  <div id="add-panel" class="add-panel">
+    <h3>Add team member</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="new-name" placeholder="Full name">
+      </div>
+      <div class="form-group">
+        <label>Function</label>
+        <select id="new-fn">
+          <option>Delivery</option>
+          <option>Oracle</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button class="btn btn-green" onclick="addMember()" style="margin-bottom:1px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Add
+      </button>
+      <button class="btn" onclick="toggleAddForm()" style="margin-bottom:1px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="week-nav">
+      <button class="btn btn-icon" onclick="shiftWeek(-1)" title="Previous week">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="week-label" id="week-label"></span>
+      <button class="btn btn-icon" onclick="shiftWeek(1)" title="Next week">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="btn" onclick="goToday()">Today</button>
+    </div>
+    <div style="font-size:12px;color:var(--text3)">
+      <svg style="width:13px;height:13px;vertical-align:-1px;margin-right:3px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Click any cell to change status
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead id="rota-head"></thead>
+      <tbody id="rota-body"></tbody>
+    </table>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot wfo">WFO</div> Work from office</div>
+    <div class="legend-item"><div class="legend-dot wfh">WFH</div> Work from home</div>
+    <div class="legend-item" style="color:var(--text3)">
+      <svg style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Click any cell to toggle WFO / WFH
+    </div>
+  </div>
+</div>
+
+<!-- Edit modal -->
+<div id="modal" style="display:none">
+  <div class="modal-bg" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3 id="modal-name"></h3>
+      <p id="modal-date"></p>
+      <div class="status-btns">
+        <div class="status-btn" id="btn-wfo" onclick="selectStatus('WFO')">
+          <span class="sb-icon">🏢</span>WFO
+        </div>
+        <div class="status-btn" id="btn-wfh" onclick="selectStatus('WFH')">
+          <span class="sb-icon">🏠</span>WFH
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-green" onclick="saveModal()" style="flex:1;justify-content:center">Save</button>
+        <button class="btn" onclick="clearModal()">Clear</button>
+        <button class="btn" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirm modal -->
+<div id="del-modal" style="display:none">
+  <div class="modal-bg" onclick="closeDelModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3>Remove member</h3>
+      <p id="del-name-p" style="font-family:'DM Sans',sans-serif;margin-bottom:1.25rem"></p>
+      <div class="modal-actions">
+        <button class="btn btn-red" onclick="confirmDelete()" style="flex:1;justify-content:center">Remove</button>
+        <button class="btn" onclick="closeDelModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday'];
+let weekOffset = 0;
+let editTarget = null, editStatus = null, deleteTarget = null;
+let nextId = 100;
+
+let rota = {
+  members: [
+    {id:1,name:'Younis',fn:'Delivery'},
+    {id:2,name:'Mahgoub',fn:'Delivery'},
+    {id:3,name:'Omar',fn:'Delivery'},
+    {id:4,name:'Yehia',fn:'Delivery'},
+    {id:5,name:'Ramy',fn:'Delivery'},
+    {id:6,name:'Gedawy',fn:'Oracle'},
+    {id:7,name:'Riad',fn:'Oracle'},
+    {id:8,name:'Mahmoud',fn:'Oracle'},
+  ],
+  slots: {}
+};
+
+function getWeekDates(offset) {
+  const now = new Date();
+  const sunday = new Date(now);
+  sunday.setDate(now.getDate() - now.getDay() + offset * 7);
+  return Array.from({length:5}, (_,i) => { const d = new Date(sunday); d.setDate(sunday.getDate()+i); return d; });
+}
+
+function fmtDisplay(d) {
+  return d.toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function fmtKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function slotKey(id, dk) { return `${id}|${dk}`; }
+
+function seedInitial() {
+  const dates = getWeekDates(0);
+  const data = [
+    [1,[null,'WFO','WFO','WFO',null]],
+    [2,[null,'WFO',null,'WFO',null]],
+    [3,[null,'WFO','WFO','WFO',null]],
+    [4,[null,'WFO','WFO',null,'WFO']],
+    [5,[null,'WFO',null,'WFO',null]],
+    [6,[null,'WFO','WFO',null,'WFO']],
+    [7,[null,'WFO','WFO',null,'WFO']],
+    [8,[null,'WFO',null,'WFO',null]],
+  ];
+  data.forEach(([id,arr]) => arr.forEach((s,i) => {
+    rota.slots[slotKey(id, fmtKey(dates[i]))] = s || 'WFH';
+  }));
+}
+
+function renderStats() {
+  const allVals = Object.values(rota.slots);
+  const wfo = allVals.filter(v=>v==='WFO').length;
+  const wfh = allVals.filter(v=>v==='WFH').length;
+  const dates = getWeekDates(weekOffset);
+  const maxOff = Math.max(0,...dates.map(d=>rota.members.filter(m=>rota.slots[slotKey(m.id,fmtKey(d))]==='WFO').length));
+  document.getElementById('stats').innerHTML = [
+    ['Members', rota.members.length, ''],
+    ['In office', wfo, 'green'],
+    ['At home', wfh, 'red'],
+    ['Peak office day', maxOff, ''],
+  ].map(([l,v,cls])=>`<div class="stat-card"><div class="stat-label">${l}</div><div class="stat-val ${cls}">${v}</div></div>`).join('');
+}
+
+function render() {
+  const dates = getWeekDates(weekOffset);
+  document.getElementById('week-label').textContent =
+    `${fmtDisplay(dates[0])} – ${fmtDisplay(dates[4])}`;
+
+  document.getElementById('rota-head').innerHTML = `
+    <tr>
+      <th style="width:80px;text-align:left">Function</th>
+      <th style="width:130px;text-align:left">Name</th>
+      ${DAYS.map(d=>`<th>${d}</th>`).join('')}
+      <th style="width:50px">WFH</th>
+      <th style="width:36px"></th>
+    </tr>
+    <tr>
+      <th></th><th></th>
+      ${dates.map(d=>`<th>${fmtDisplay(d)}</th>`).join('')}
+      <th></th><th></th>
+    </tr>`;
+
+  const fns = [...new Set(rota.members.map(m=>m.fn))];
+  let html = '';
+  fns.forEach((fn, fi) => {
+    const members = rota.members.filter(m=>m.fn===fn);
+    members.forEach((m, mi) => {
+      const wfhCount = dates.filter(d=>rota.slots[slotKey(m.id,fmtKey(d))]==='WFH').length;
+      const fnClass = fn==='Delivery' ? 'td-fn-delivery' : fn==='Oracle' ? 'td-fn-oracle' : '';
+      const fnCell = mi===0
+        ? `<td class="td-fn ${fnClass}" rowspan="${members.length}" style="border-right:1px solid var(--border)">${fn}</td>` : '';
+      const cells = dates.map(d => {
+        const dk = fmtKey(d);
+        const k = slotKey(m.id, dk);
+        const s = rota.slots[k] || '';
+        const cls = s==='WFO'?'slot-wfo':s==='WFH'?'slot-wfh':'slot-empty';
+        return `<td class="td-center"><span class="slot ${cls}" onclick="openModal(${m.id},'${dk}','${m.name}')">${s||'–'}</span></td>`;
+      }).join('');
+      html += `<tr>
+        ${fnCell}
+        <td class="td-name">${m.name}</td>
+        ${cells}
+        <td class="td-count">${wfhCount}</td>
+        <td class="td-center">
+          <button class="del-btn" onclick="openDelete(${m.id},'${m.name}')" title="Remove">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
+        </td>
+      </tr>`;
+    });
+    if(fi < fns.length-1) html += `<tr class="fn-divider"><td colspan="9"></td></tr>`;
+  });
+
+  const wfoCounts = dates.map(d=>rota.members.filter(m=>rota.slots[slotKey(m.id,fmtKey(d))]==='WFO').length);
+  const totalWfh = rota.members.reduce((a,m)=>a+dates.filter(d=>rota.slots[slotKey(m.id,fmtKey(d))]==='WFH').length,0);
+  html += `<tr class="summary-row">
+    <td>WFO per day</td><td></td>
+    ${wfoCounts.map(n=>`<td>${n}</td>`).join('')}
+    <td>${totalWfh}</td><td></td>
+  </tr>`;
+
+  document.getElementById('rota-body').innerHTML = html;
+  renderStats();
+}
+
+function openModal(id, dk, name) {
+  editTarget = {id, dk};
+  editStatus = rota.slots[slotKey(id, dk)] || null;
+  document.getElementById('modal-name').textContent = name;
+  const d = new Date(dk);
+  document.getElementById('modal-date').textContent = `${DAYS[d.getDay()]}  ·  ${dk}`;
+  updateStatusBtns();
+  document.getElementById('modal').style.display = 'block';
+}
+
+function selectStatus(s) {
+  editStatus = s;
+  updateStatusBtns();
+}
+
+function updateStatusBtns() {
+  document.getElementById('btn-wfo').className = 'status-btn' + (editStatus==='WFO'?' sel-wfo':'');
+  document.getElementById('btn-wfh').className = 'status-btn' + (editStatus==='WFH'?' sel-wfh':'');
+}
+
+function saveModal() {
+  if(!editTarget || !editStatus) return;
+  rota.slots[slotKey(editTarget.id, editTarget.dk)] = editStatus;
+  closeModal(); render(); showToast('Status saved');
+}
+
+function clearModal() {
+  if(!editTarget) return;
+  delete rota.slots[slotKey(editTarget.id, editTarget.dk)];
+  closeModal(); render(); showToast('Status cleared');
+}
+
+function closeModal(e) {
+  if(e && e.target !== e.currentTarget) return;
+  document.getElementById('modal').style.display = 'none';
+  editTarget = null; editStatus = null;
+}
+
+function openDelete(id, name) {
+  deleteTarget = id;
+  document.getElementById('del-name-p').textContent = `Remove "${name}" from the rota? This cannot be undone.`;
+  document.getElementById('del-modal').style.display = 'block';
+}
+function confirmDelete() {
+  rota.members = rota.members.filter(m=>m.id!==deleteTarget);
+  closeDelModal(); render(); showToast('Member removed');
+}
+function closeDelModal(e) {
+  if(e && e.target !== e.currentTarget) return;
+  document.getElementById('del-modal').style.display = 'none';
+  deleteTarget = null;
+}
+
+function shiftWeek(d) { weekOffset += d; render(); }
+function goToday() { weekOffset = 0; render(); }
+
+function toggleAddForm() {
+  document.getElementById('add-panel').classList.toggle('show');
+}
+function addMember() {
+  const name = document.getElementById('new-name').value.trim();
+  const fn = document.getElementById('new-fn').value;
+  if(!name) { showToast('Please enter a name'); return; }
+  rota.members.push({id:nextId++, name, fn});
+  document.getElementById('new-name').value = '';
+  document.getElementById('add-panel').classList.remove('show');
+  render(); showToast(`${name} added to ${fn}`);
+}
+
+function exportCSV() {
+  const dates = getWeekDates(weekOffset);
+  const rows = [['Function','Name',...dates.map(d=>fmtDisplay(d)),'WFH Count']];
+  rota.members.forEach(m => {
+    const s = dates.map(d => rota.slots[slotKey(m.id,fmtKey(d))]||'');
+    rows.push([m.fn, m.name, ...s, s.filter(x=>x==='WFH').length]);
+  });
+  const blob = new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `rota_${fmtKey(dates[0])}.csv`; a.click();
+  showToast('CSV downloaded');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeDelModal(); } });
+
+seedInitial();
+render();
+</script>
+</body>
+</html>
