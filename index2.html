@@ -46,7 +46,7 @@
   .stat-val.green { color: var(--wfo-text); }
   .stat-val.red { color: var(--wfh-text); }
   .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
-  .week-nav { display: flex; align-items: center; gap: 8px; }
+  .week-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .week-label { font-size: 14px; font-weight: 500; color: var(--text); min-width: 220px; text-align: center; font-family: 'DM Mono', monospace; }
   .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: var(--surface); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; box-shadow: var(--shadow); white-space: nowrap; }
   .btn:hover { background: var(--surface2); border-color: var(--text3); }
@@ -57,6 +57,8 @@
   .btn-green:hover { opacity: 0.88; }
   .btn-red { background: #9B2A2A; color: white; border-color: #9B2A2A; }
   .btn-red:hover { opacity: 0.88; }
+  .btn-copy { border-style: dashed; }
+  .btn-copy:hover { border-style: dashed; background: var(--accent-soft); border-color: var(--accent); }
   .add-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); display: none; animation: slideDown .18s ease; }
   .add-panel.show { display: block; }
   @keyframes slideDown { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
@@ -101,7 +103,7 @@
   .legend-dot.wfh { background: var(--wfh-bg); color: var(--wfh-text); border: 1px solid var(--wfh-border); }
   .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(2px); animation: fadeIn .15s ease; }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  .modal { background: var(--surface); border-radius: 14px; border: 1px solid var(--border); padding: 1.5rem; width: 320px; max-width: 95vw; box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: scaleIn .18s ease; }
+  .modal { background: var(--surface); border-radius: 14px; border: 1px solid var(--border); padding: 1.5rem; width: 340px; max-width: 95vw; box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: scaleIn .18s ease; }
   @keyframes scaleIn { from { transform: scale(0.94); opacity:0; } to { transform: scale(1); opacity:1; } }
   .modal h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
   .modal p { font-size: 12px; color: var(--text2); margin-bottom: 1.25rem; font-family: 'DM Mono', monospace; }
@@ -112,16 +114,18 @@
   .status-btn.sel-wfo { border-color: var(--wfo-border); background: var(--wfo-bg); color: var(--wfo-text); }
   .status-btn.sel-wfh { border-color: var(--wfh-border); background: var(--wfh-bg); color: var(--wfh-text); }
   .modal-actions { display: flex; gap: 8px; }
+  .alert-box { border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12px; margin-bottom: 1.25rem; line-height: 1.5; }
+  .alert-warn { background: var(--wfh-bg); border: 1px solid var(--wfh-border); color: var(--wfh-text); }
+  .alert-info { background: #FFF8E1; border: 1px solid #FFD54F; color: #7A5000; }
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--text); color: white; border-radius: 30px; padding: 9px 20px; font-size: 13px; font-weight: 500; opacity: 0; transition: all .25s; pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,0.2); white-space: nowrap; z-index: 200; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  @media(max-width:600px) { .main { padding: 1.25rem 1rem; } .header { padding: 0 1rem; } .week-label { min-width: 150px; font-size: 12px; } }
+  @media(max-width:640px) { .main { padding: 1.25rem 1rem; } .header { padding: 0 1rem; } .week-label { min-width: 150px; font-size: 12px; } }
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-left">
-    <!-- Beltone logo as inline SVG - matches the wordmark style -->
     <svg height="28" viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
       <text x="0" y="32" font-family="Georgia, serif" font-size="34" font-weight="300" fill="#3a3a3a" letter-spacing="-1">Beltone</text>
     </svg>
@@ -179,6 +183,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
       <button class="btn" onclick="goToday()">Today</button>
+      <button class="btn btn-copy" onclick="openCopyModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy prev week
+      </button>
     </div>
     <div style="font-size:12px;color:var(--text3)">
       <svg style="width:13px;height:13px;vertical-align:-1px;margin-right:3px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -199,6 +207,7 @@
   </div>
 </div>
 
+<!-- Edit modal -->
 <div id="modal" style="display:none">
   <div class="modal-bg" onclick="closeModal(event)">
     <div class="modal" onclick="event.stopPropagation()">
@@ -217,6 +226,7 @@
   </div>
 </div>
 
+<!-- Delete confirm modal -->
 <div id="del-modal" style="display:none">
   <div class="modal-bg" onclick="closeDelModal(event)">
     <div class="modal" onclick="event.stopPropagation()">
@@ -225,6 +235,29 @@
       <div class="modal-actions">
         <button class="btn btn-red" onclick="confirmDelete()" style="flex:1;justify-content:center">Remove</button>
         <button class="btn" onclick="closeDelModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Copy from previous week modal -->
+<div id="copy-modal" style="display:none">
+  <div class="modal-bg" onclick="closeCopyModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3>Copy previous week's schedule</h3>
+      <p id="copy-modal-sub" style="font-family:'DM Sans',sans-serif;color:var(--text2);font-size:13px;margin-bottom:12px;line-height:1.5"></p>
+      <div id="copy-warning" class="alert-box alert-warn" style="display:none">
+        ⚠️ This week already has a schedule. Copying will <strong>overwrite</strong> all existing entries for this week.
+      </div>
+      <div id="copy-empty-warning" class="alert-box alert-info" style="display:none">
+        ℹ️ The previous week has no schedule to copy from.
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-green" id="copy-confirm-btn" onclick="confirmCopy()" style="flex:1;justify-content:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy schedule
+        </button>
+        <button class="btn" onclick="closeCopyModal()">Cancel</button>
       </div>
     </div>
   </div>
@@ -280,7 +313,19 @@ function renderStats() {
 function render() {
   const dates = getWeekDates(weekOffset);
   document.getElementById('week-label').textContent = `${fmtDisplay(dates[0])} – ${fmtDisplay(dates[4])}`;
-  document.getElementById('rota-head').innerHTML = `<tr><th style="width:80px;text-align:left">Function</th><th style="width:130px;text-align:left">Name</th>${DAYS.map(d=>`<th>${d}</th>`).join('')}<th style="width:50px">WFH</th><th style="width:36px"></th></tr><tr><th></th><th></th>${dates.map(d=>`<th>${fmtDisplay(d)}</th>`).join('')}<th></th><th></th></tr>`;
+  document.getElementById('rota-head').innerHTML = `
+    <tr>
+      <th style="width:80px;text-align:left">Function</th>
+      <th style="width:130px;text-align:left">Name</th>
+      ${DAYS.map(d=>`<th>${d}</th>`).join('')}
+      <th style="width:50px">WFH</th>
+      <th style="width:36px"></th>
+    </tr>
+    <tr>
+      <th></th><th></th>
+      ${dates.map(d=>`<th>${fmtDisplay(d)}</th>`).join('')}
+      <th></th><th></th>
+    </tr>`;
   const fns = [...new Set(rota.members.map(m=>m.fn))];
   let html = '';
   fns.forEach((fn,fi) => {
@@ -307,7 +352,8 @@ function render() {
 function openModal(id,dk,name) {
   editTarget={id,dk}; editStatus=rota.slots[slotKey(id,dk)]||null;
   document.getElementById('modal-name').textContent=name;
-  const d=new Date(dk); document.getElementById('modal-date').textContent=`${DAYS[d.getDay()]}  ·  ${dk}`;
+  const d=new Date(dk);
+  document.getElementById('modal-date').textContent=`${DAYS[d.getDay()]}  ·  ${dk}`;
   updateStatusBtns(); document.getElementById('modal').style.display='block';
 }
 function selectStatus(s) { editStatus=s; updateStatusBtns(); }
@@ -318,30 +364,71 @@ function updateStatusBtns() {
 function saveModal() { if(!editTarget||!editStatus) return; rota.slots[slotKey(editTarget.id,editTarget.dk)]=editStatus; closeModal(); render(); showToast('Status saved'); }
 function clearModal() { if(!editTarget) return; delete rota.slots[slotKey(editTarget.id,editTarget.dk)]; closeModal(); render(); showToast('Status cleared'); }
 function closeModal(e) { if(e&&e.target!==e.currentTarget) return; document.getElementById('modal').style.display='none'; editTarget=null; editStatus=null; }
+
 function openDelete(id,name) { deleteTarget=id; document.getElementById('del-name-p').textContent=`Remove "${name}" from the rota? This cannot be undone.`; document.getElementById('del-modal').style.display='block'; }
 function confirmDelete() { rota.members=rota.members.filter(m=>m.id!==deleteTarget); closeDelModal(); render(); showToast('Member removed'); }
 function closeDelModal(e) { if(e&&e.target!==e.currentTarget) return; document.getElementById('del-modal').style.display='none'; deleteTarget=null; }
+
+function openCopyModal() {
+  const prevDates = getWeekDates(weekOffset - 1);
+  const currDates = getWeekDates(weekOffset);
+  const prevHasData = rota.members.some(m => prevDates.some(d => rota.slots[slotKey(m.id,fmtKey(d))]));
+  const currHasData = rota.members.some(m => currDates.some(d => rota.slots[slotKey(m.id,fmtKey(d))]));
+  document.getElementById('copy-modal-sub').textContent =
+    `Copy schedule from  ${fmtDisplay(prevDates[0])} – ${fmtDisplay(prevDates[4])}  →  ${fmtDisplay(currDates[0])} – ${fmtDisplay(currDates[4])}`;
+  document.getElementById('copy-warning').style.display = currHasData ? 'block' : 'none';
+  document.getElementById('copy-empty-warning').style.display = prevHasData ? 'none' : 'block';
+  const btn = document.getElementById('copy-confirm-btn');
+  btn.disabled = !prevHasData;
+  btn.style.opacity = prevHasData ? '1' : '0.4';
+  btn.style.cursor = prevHasData ? 'pointer' : 'not-allowed';
+  document.getElementById('copy-modal').style.display = 'block';
+}
+
+function confirmCopy() {
+  const prevDates = getWeekDates(weekOffset - 1);
+  const currDates = getWeekDates(weekOffset);
+  // Clear current week
+  rota.members.forEach(m => currDates.forEach(d => { delete rota.slots[slotKey(m.id,fmtKey(d))]; }));
+  // Copy prev week day-by-day
+  let copied = 0;
+  rota.members.forEach(m => {
+    prevDates.forEach((prevDay,i) => {
+      const val = rota.slots[slotKey(m.id,fmtKey(prevDay))];
+      if(val) { rota.slots[slotKey(m.id,fmtKey(currDates[i]))] = val; copied++; }
+    });
+  });
+  closeCopyModal(); render(); showToast(`✓ Copied ${copied} entries from previous week`);
+}
+
+function closeCopyModal(e) { if(e&&e.target!==e.currentTarget) return; document.getElementById('copy-modal').style.display='none'; }
+
 function shiftWeek(d) { weekOffset+=d; render(); }
 function goToday() { weekOffset=0; render(); }
 function toggleAddForm() { document.getElementById('add-panel').classList.toggle('show'); }
+
 function addMember() {
   const name=document.getElementById('new-name').value.trim(), fn=document.getElementById('new-fn').value;
   if(!name){showToast('Please enter a name');return;}
   rota.members.push({id:nextId++,name,fn}); document.getElementById('new-name').value='';
   document.getElementById('add-panel').classList.remove('show'); render(); showToast(`${name} added to ${fn}`);
 }
+
 function exportCSV() {
   const dates=getWeekDates(weekOffset), rows=[['Function','Name',...dates.map(d=>fmtDisplay(d)),'WFH Count']];
   rota.members.forEach(m=>{const s=dates.map(d=>rota.slots[slotKey(m.id,fmtKey(d))]||''); rows.push([m.fn,m.name,...s,s.filter(x=>x==='WFH').length]);});
   const blob=new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'}), a=document.createElement('a');
   a.href=URL.createObjectURL(blob); a.download=`rota_${fmtKey(dates[0])}.csv`; a.click(); showToast('CSV downloaded');
 }
+
 function showToast(msg) {
   const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
   clearTimeout(t._timer); t._timer=setTimeout(()=>t.classList.remove('show'),2400);
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDelModal();}});
-seedInitial(); render();
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDelModal();closeCopyModal();}});
+seedInitial();
+render();
 </script>
 </body>
 </html>
