@@ -180,6 +180,36 @@ td{padding:9px 12px;font-size:13px;vertical-align:middle}
 .slot.dragging{opacity:.3;transform:scale(.92)}
 .swap-dot{width:5px;height:5px;border-radius:50%;background:var(--swap-text);flex-shrink:0}
 
+/* Today highlight */
+.is-today{background:var(--yellow-pale)!important}
+thead th.is-today{box-shadow:inset 0 -3px 0 var(--yellow);color:var(--yellow-dark)!important;font-weight:700!important}
+.month-slot-cell.is-today{background:var(--yellow-pale);box-shadow:inset 0 -2px 0 var(--yellow)}
+
+/* Bulk select */
+.slot.selected,.month-slot.selected{outline:2.5px solid var(--yellow)!important;outline-offset:2px;box-shadow:0 0 0 4px var(--yellow-pale)}
+body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
+.bulk-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:#fff;border-radius:30px;padding:8px 12px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);z-index:150;opacity:0;transition:all .25s;pointer-events:none}
+.bulk-bar.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.bulk-bar .bulk-count{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;padding:0 8px;background:rgba(255,255,255,.1);border-radius:20px;height:26px;display:flex;align-items:center}
+.bulk-bar button{border:none;padding:6px 12px;border-radius:20px;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.bulk-bar .bb-wfo{background:var(--wfo-bg);color:var(--wfo-text)}
+.bulk-bar .bb-wfh{background:var(--wfh-bg);color:var(--wfh-text)}
+.bulk-bar .bb-clear{background:rgba(255,255,255,.15);color:#fff}
+.bulk-bar .bb-close{background:transparent;color:rgba(255,255,255,.6);padding:6px 8px}
+
+/* Search input */
+.search-input{font-family:'Instrument Sans',sans-serif;font-size:12px;padding:6px 10px 6px 28px;border-radius:7px;border:1px solid var(--border2);background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A59D' stroke-width='2'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 8px center;background-size:14px;color:var(--text);width:140px;outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--yellow);width:180px}
+
+/* Stats modal */
+.stats-table{width:100%;border-collapse:collapse;font-size:13px}
+.stats-table th,.stats-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.stats-table th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);font-weight:600;background:var(--surface2)}
+.stats-table tbody tr:hover{background:var(--surface2)}
+.stats-table .num{text-align:right;font-family:'DM Mono',monospace}
+.pct-bar{display:inline-block;width:60px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;vertical-align:middle;margin-right:6px}
+.pct-bar>span{display:block;height:100%;background:var(--wfo-text)}
+
 .del-btn{width:26px;height:26px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
 .del-btn:hover{background:var(--wfh-bg);color:var(--wfh-text);border-color:var(--wfh-border)}
 .del-btn svg{width:12px;height:12px}
@@ -299,6 +329,19 @@ td{padding:9px 12px;font-size:13px;vertical-align:middle}
     </button>
     <button class="btn btn-icon" onclick="window.print()" title="Print">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    </button>
+    <select id="fn-filter" onchange="setFnFilter(this.value)" title="Filter by function" style="font-family:'Instrument Sans',sans-serif;font-size:12px;padding:6px 8px;border-radius:7px;border:1px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer">
+      <option value="">All functions</option>
+    </select>
+    <input type="text" id="search-input" class="search-input" placeholder="Search…" oninput="setSearch(this.value)">
+    <button class="btn btn-icon" id="btn-bulk" onclick="toggleBulk()" title="Bulk edit mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </button>
+    <button class="btn btn-icon" onclick="openStatsModal()" title="Per-person stats">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    </button>
+    <button class="btn btn-icon" onclick="exportICS()" title="Export to calendar (.ics)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     </button>
     <button class="btn btn-swap" onclick="openSwapModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
@@ -473,6 +516,28 @@ td{padding:9px 12px;font-size:13px;vertical-align:middle}
 
 <div class="toast" id="toast"></div>
 
+<div class="bulk-bar" id="bulk-bar">
+  <span class="bulk-count" id="bulk-count">0 selected</span>
+  <button class="bb-wfo" onclick="bulkSet('WFO')">🏢 WFO</button>
+  <button class="bb-wfh" onclick="bulkSet('WFH')">🏠 WFH</button>
+  <button class="bb-clear" onclick="bulkSet(null)">Clear</button>
+  <button class="bb-close" onclick="exitBulk()" title="Exit">✕</button>
+</div>
+
+<div class="overlay" id="stats-modal" style="display:none" onclick="closeM('stats-modal',event)">
+  <div class="modal wide" onclick="event.stopPropagation()" style="max-width:560px">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Per-person stats
+    </h3>
+    <p class="modal-sub" id="stats-sub"></p>
+    <div id="stats-body" style="max-height:60vh;overflow-y:auto;border:1px solid var(--border);border-radius:var(--r-sm)"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeM('stats-modal')" style="flex:1;justify-content:center">Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ── Constants ────────────────────────────────────────────────
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday'];
@@ -486,6 +551,10 @@ let editTarget = null, editSt = null, delTarget = null;
 let dragSrc = null, touchDragSrc = null, touchMoved = false;
 let swapNextId = 1, nextMId = 100;
 let swaps = [];
+let fnFilter = '';
+let searchQ = '';
+let bulkMode = false;
+let bulkSel = new Set(); // keys: "mid|dk"
 
 const rota = {
   members: [
@@ -532,6 +601,132 @@ const fmtK = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-
 const sk = (id,dk) => `${id}|${dk}`;
 const dayLbl = dk => { const d=new Date(dk); return `${DAYS[d.getDay()]} ${fmtD(d)}`; };
 const isSwapped = (mid,dk) => swaps.some(s=>s.status==='applied'&&((s.pAId==mid&&s.dayA===dk)||(s.pBId==mid&&s.dayB===dk)));
+
+// ── Today helper ─────────────────────────────────────────────
+const TODAY_KEY = (()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;})();
+const isToday = dk => dk === TODAY_KEY;
+
+// ── Filter helper ────────────────────────────────────────────
+const visibleMembers = () => {
+  const q = searchQ.trim().toLowerCase();
+  return rota.members.filter(m =>
+    (!fnFilter || m.fn===fnFilter) &&
+    (!q || m.name.toLowerCase().includes(q))
+  );
+};
+function setFnFilter(v){ fnFilter = v; persist(); render(); }
+function setSearch(v){ searchQ = v; render(); }
+function refreshFnFilter(){
+  const sel = document.getElementById('fn-filter'); if(!sel) return;
+  const fns = [...new Set(rota.members.map(m=>m.fn))];
+  sel.innerHTML = '<option value="">All functions</option>' + fns.map(f=>`<option value="${f}"${f===fnFilter?' selected':''}>${f}</option>`).join('');
+}
+
+// ── Bulk edit ────────────────────────────────────────────────
+function toggleBulk(){
+  bulkMode = !bulkMode;
+  document.body.classList.toggle('bulk-mode', bulkMode);
+  document.getElementById('btn-bulk').classList.toggle('btn-active', bulkMode);
+  if(!bulkMode){ bulkSel.clear(); updateBulkBar(); }
+  else { showToast('Bulk mode: tap cells to select'); updateBulkBar(); }
+  render();
+}
+function exitBulk(){ if(bulkMode) toggleBulk(); }
+function bulkCellClick(mid, dk){
+  const k = sk(mid, dk);
+  if(bulkSel.has(k)) bulkSel.delete(k); else bulkSel.add(k);
+  updateBulkBar();
+  // toggle visual without full re-render
+  document.querySelectorAll(`[data-bk="${k}"]`).forEach(el=>el.classList.toggle('selected', bulkSel.has(k)));
+}
+function updateBulkBar(){
+  const bar = document.getElementById('bulk-bar');
+  const n = bulkSel.size;
+  document.getElementById('bulk-count').textContent = `${n} selected`;
+  bar.classList.toggle('show', bulkMode && n>0);
+}
+function bulkSet(status){
+  if(!bulkSel.size) return;
+  bulkSel.forEach(k => {
+    if(status===null) delete rota.slots[k];
+    else rota.slots[k] = status;
+  });
+  const n = bulkSel.size;
+  bulkSel.clear();
+  render();
+  showToast(`${status||'Cleared'} · ${n} cells`);
+}
+
+// ── Per-person stats ─────────────────────────────────────────
+function currentPeriodDates(){
+  if(view==='week') return wkDates(weekOffset);
+  const now = new Date(), t = new Date(now.getFullYear(), now.getMonth()+monthOffset, 1);
+  const mo = t.getMonth();
+  const out = [];
+  monthWeeks(monthOffset).forEach(wk => wk.forEach(d => { if(d.getMonth()===mo) out.push(d); }));
+  return out;
+}
+function longestStreak(mid, dates, status){
+  let best = 0, cur = 0;
+  dates.forEach(d => {
+    if(rota.slots[sk(mid, fmtK(d))] === status){ cur++; best = Math.max(best, cur); }
+    else cur = 0;
+  });
+  return best;
+}
+function openStatsModal(){
+  const dates = currentPeriodDates();
+  const periodLbl = document.getElementById('period-label').textContent;
+  document.getElementById('stats-sub').textContent = `${periodLbl} · ${dates.length} working days`;
+  const members = visibleMembers();
+  const rows = members.map(m => {
+    const wfo = dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length;
+    const wfh = dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length;
+    const assigned = wfo + wfh;
+    const pct = assigned ? Math.round((wfo/assigned)*100) : 0;
+    const sWfo = longestStreak(m.id, dates, 'WFO');
+    const sWfh = longestStreak(m.id, dates, 'WFH');
+    return {m, wfo, wfh, assigned, pct, sWfo, sWfh};
+  }).sort((a,b)=>b.pct - a.pct);
+  const body = `<table class="stats-table">
+    <thead><tr><th>Member</th><th class="num">WFO</th><th class="num">WFH</th><th>WFO %</th><th class="num" title="Longest WFO streak">🏢 streak</th><th class="num" title="Longest WFH streak">🏠 streak</th></tr></thead>
+    <tbody>${rows.map(r=>`
+      <tr>
+        <td><span class="person-chip" style="background:${personColor(r.m.id)};margin-right:6px;vertical-align:middle"></span>${r.m.name} <span style="color:var(--text3);font-size:11px">· ${r.m.fn}</span></td>
+        <td class="num" style="color:var(--wfo-text);font-weight:600">${r.wfo}</td>
+        <td class="num" style="color:var(--wfh-text);font-weight:600">${r.wfh}</td>
+        <td><span class="pct-bar"><span style="width:${r.pct}%"></span></span><span style="font-family:'DM Mono',monospace;font-size:11px">${r.pct}%</span></td>
+        <td class="num">${r.sWfo}d</td>
+        <td class="num">${r.sWfh}d</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+  document.getElementById('stats-body').innerHTML = body || '<p style="padding:20px;text-align:center;color:var(--text3)">No members.</p>';
+  showOverlay('stats-modal');
+}
+
+// ── Persistence ──────────────────────────────────────────────
+const STORAGE_KEY = 'rota-data-v1';
+function persist(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      members: rota.members, slots: rota.slots, swaps, swapNextId, nextMId, fnFilter
+    }));
+  }catch(e){}
+}
+function loadPersisted(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY); if(!raw) return false;
+    const d = JSON.parse(raw);
+    if(d.members) rota.members = d.members;
+    if(d.slots) rota.slots = d.slots;
+    if(d.swaps) swaps = d.swaps;
+    if(d.swapNextId) swapNextId = d.swapNextId;
+    if(d.nextMId) nextMId = d.nextMId;
+    if(d.fnFilter) fnFilter = d.fnFilter;
+    return true;
+  }catch(e){ return false; }
+}
 
 // ── Per-person color palette ─────────────────────────────────
 const PERSON_PALETTE = ['#E11D48','#F97316','#EAB308','#22C55E','#06B6D4','#3B82F6','#8B5CF6','#EC4899','#14B8A6','#F43F5E','#84CC16','#A855F7'];
@@ -590,10 +785,12 @@ function renderStats() {
 // ── Main render ────────────────────────────────────────────────
 function render() {
   updatePeriodLabel();
+  refreshFnFilter();
   if(view==='week') renderWeek();
   else renderMonth();
   renderStats();
   renderSwapLog();
+  persist();
 }
 
 function updatePeriodLabel() {
@@ -613,23 +810,24 @@ function updatePeriodLabel() {
 // ── WEEKLY VIEW ───────────────────────────────────────────────
 function renderWeek() {
   const dates = wkDates(weekOffset);
-  const fns = [...new Set(rota.members.map(m=>m.fn))];
+  const members = visibleMembers();
+  const fns = [...new Set(members.map(m=>m.fn))];
   let thead = `<tr>
     <th style="width:75px;text-align:left">Fn</th>
     <th style="width:110px;text-align:left">Name</th>
-    ${DAYS.map(d=>`<th>${d}</th>`).join('')}
+    ${dates.map((d,i)=>`<th class="${isToday(fmtK(d))?'is-today':''}">${DAYS[i]}</th>`).join('')}
     <th style="width:44px">WFH</th>
     <th style="width:32px"></th>
   </tr>
   <tr class="date-row">
     <th></th><th></th>
-    ${dates.map(d=>`<th>${fmtD(d)}</th>`).join('')}
+    ${dates.map(d=>`<th class="${isToday(fmtK(d))?'is-today':''}">${fmtD(d)}</th>`).join('')}
     <th></th><th></th>
   </tr>`;
 
   let tbody = '';
   fns.forEach((fn,fi) => {
-    const mems = rota.members.filter(m=>m.fn===fn);
+    const mems = members.filter(m=>m.fn===fn);
     mems.forEach((m,mi) => {
       const wfh = dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length;
       const fnCell = mi===0 ? `<td class="td-fn td-fn-${fn[0]}" rowspan="${mems.length}">${fn}</td>` : '';
@@ -638,9 +836,11 @@ function renderWeek() {
         const cls=s==='WFO'?'slot-wfo':s==='WFH'?'slot-wfh':'slot-empty';
         const swCls=isSwapped(m.id,dk)?' swapped':'';
         const dot=isSwapped(m.id,dk)?'<span class="swap-dot"></span>':'';
-        return `<td class="td-c"><span class="slot ${cls}${swCls}"
+        const selCls = bulkSel.has(sk(m.id,dk)) ? ' selected' : '';
+        return `<td class="td-c ${isToday(dk)?'is-today':''}"><span class="slot ${cls}${swCls}${selCls}"
           data-mid="${m.id}" data-dk="${dk}" data-name="${m.name}"
-          onclick="openEdit(${m.id},'${dk}','${m.name}')"
+          data-bk="${sk(m.id,dk)}"
+          onclick="cellClick(${m.id},'${dk}','${m.name}')"
           draggable="true"
           ontouchstart="ts(event,${m.id},'${dk}')"
           ontouchmove="tm(event)" ontouchend="te(event,${m.id},'${dk}')"
@@ -657,9 +857,9 @@ function renderWeek() {
     });
     if(fi<fns.length-1) tbody+=`<tr class="fn-div"><td colspan="9"></td></tr>`;
   });
-  const wfoRow = dates.map(d=>rota.members.filter(m=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length);
-  const totWfh = rota.members.reduce((a,m)=>a+dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length,0);
-  tbody+=`<tr class="summary-row"><td>WFO/day</td><td></td>${wfoRow.map(n=>`<td>${n}</td>`).join('')}<td>${totWfh}</td><td></td></tr>`;
+  const wfoRow = dates.map(d=>members.filter(m=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length);
+  const totWfh = members.reduce((a,m)=>a+dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length,0);
+  tbody+=`<tr class="summary-row"><td>WFO/day</td><td></td>${wfoRow.map((n,i)=>`<td class="${isToday(fmtK(dates[i]))?'is-today':''}">${n}</td>`).join('')}<td>${totWfh}</td><td></td></tr>`;
 
   document.getElementById('view-container').innerHTML = `
     <div class="table-wrap"><table>
@@ -673,6 +873,7 @@ function renderMonth() {
   const weeks = monthWeeks(monthOffset);
   const now = new Date(), t = new Date(now.getFullYear(), now.getMonth()+monthOffset, 1);
   const mo = t.getMonth();
+  const members = visibleMembers();
 
   let html = `<div class="month-wrap">`;
 
@@ -686,7 +887,7 @@ function renderMonth() {
   weeks.forEach((wk,wi) => {
     const wkLabel = `${fmtD(wk[0])} – ${fmtD(wk[4])}`;
     // Count WFO per day for this week (summary row)
-    const wfoPerDay = wk.map(d=>rota.members.filter(m=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length);
+    const wfoPerDay = wk.map(d=>members.filter(m=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length);
 
     html += `<div class="month-week">
       <div class="month-week-label">
@@ -695,7 +896,7 @@ function renderMonth() {
       </div>`;
 
     // Member rows
-    rota.members.forEach(m => {
+    members.forEach(m => {
       const wfoCount = wk.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length;
       const wfhCount = wk.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length;
       const cells = wk.map(d => {
@@ -704,8 +905,10 @@ function renderMonth() {
         if(!inMonth) return `<div class="month-slot-cell"><span class="month-slot month-slot-empty" style="opacity:.3">—</span></div>`;
         const cls=s==='WFO'?'month-slot-wfo':s==='WFH'?'month-slot-wfh':'month-slot-empty';
         const swCls=isSwapped(m.id,dk)?' swapped':'';
-        return `<div class="month-slot-cell"><span class="month-slot ${cls}${swCls}"
-          onclick="openEdit(${m.id},'${dk}','${m.name}')"
+        const selCls2 = bulkSel.has(sk(m.id,dk)) ? ' selected' : '';
+        return `<div class="month-slot-cell ${isToday(dk)?'is-today':''}"><span class="month-slot ${cls}${swCls}${selCls2}"
+          data-bk="${sk(m.id,dk)}"
+          onclick="cellClick(${m.id},'${dk}','${m.name}')"
         >${s||'–'}</span></div>`;
       }).join('');
       html += `<div class="month-member-row with-totals">
@@ -735,13 +938,13 @@ function renderMonth() {
   // Grand totals row for the whole month
   const allDays = [];
   weeks.forEach(wk=>wk.forEach(d=>{ if(d.getMonth()===mo) allDays.push(d); }));
-  const totalWfo = rota.members.reduce((a,m)=>a+allDays.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length,0);
-  const totalWfh = rota.members.reduce((a,m)=>a+allDays.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length,0);
+  const totalWfo = members.reduce((a,m)=>a+allDays.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length,0);
+  const totalWfh = members.reduce((a,m)=>a+allDays.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length,0);
   html += `<div style="padding:12px 16px;background:var(--surface2);border-top:2px solid var(--border);display:flex;gap:20px;align-items:center;flex-wrap:wrap">
     <span style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Monthly totals</span>
     <span style="font-size:13px;font-weight:700;color:var(--wfo-text)">WFO: ${totalWfo}</span>
     <span style="font-size:13px;font-weight:700;color:var(--wfh-text)">WFH: ${totalWfh}</span>
-    <span style="font-size:12px;color:var(--text3)">${allDays.length} working days × ${rota.members.length} members = ${allDays.length*rota.members.length} slots</span>
+    <span style="font-size:12px;color:var(--text3)">${allDays.length} working days × ${members.length} members = ${allDays.length*members.length} slots</span>
   </div>`;
 
   html += `</div>`;
@@ -805,6 +1008,10 @@ function confirmCopy() {
 }
 
 // ── Edit cell ─────────────────────────────────────────────────
+function cellClick(id, dk, name){
+  if(bulkMode){ bulkCellClick(id, dk); return; }
+  openEdit(id, dk, name);
+}
 function openEdit(id,dk,name) {
   editTarget={id,dk}; editSt=rota.slots[sk(id,dk)]||null;
   document.getElementById('em-name').textContent=name;
@@ -824,14 +1031,14 @@ function openDel(id,name){delTarget=id;document.getElementById('del-text').textC
 function confirmDel(){rota.members=rota.members.filter(m=>m.id!==delTarget);closeM('del-modal');render();showToast('Removed');}
 
 // ── Drag & Drop ───────────────────────────────────────────────
-function ds(e,id,dk,name){dragSrc={id,dk,name};e.dataTransfer.effectAllowed='move';e.target.classList.add('dragging');setTimeout(()=>e.target.classList.remove('dragging'),0);}
+function ds(e,id,dk,name){if(bulkMode){e.preventDefault();return;}dragSrc={id,dk,name};e.dataTransfer.effectAllowed='move';e.target.classList.add('dragging');setTimeout(()=>e.target.classList.remove('dragging'),0);}
 function de(e){dragSrc=null;clrHL();}
 function do_(e){e.preventDefault();e.dataTransfer.dropEffect='move';clrHL();e.currentTarget.style.outline='2.5px dashed var(--yellow)';e.currentTarget.style.outlineOffset='2px';}
 function dr(e,id,dk){e.preventDefault();clrHL();if(!dragSrc||(dragSrc.id===id&&dragSrc.dk===dk))return;makeSwapReq(dragSrc.id,dragSrc.dk,id,dk);}
 function clrHL(){document.querySelectorAll('.slot').forEach(s=>{s.style.outline='';s.style.outlineOffset='';});}
 
 // Touch
-function ts(e,id,dk){touchDragSrc={id,dk};touchMoved=false;const t=e.touches[0];const g=document.getElementById('drag-ghost');g.textContent=rota.slots[sk(id,dk)]||'–';g.style.display='block';g.style.left=(t.clientX-30)+'px';g.style.top=(t.clientY-20)+'px';}
+function ts(e,id,dk){if(bulkMode)return;touchDragSrc={id,dk};touchMoved=false;const t=e.touches[0];const g=document.getElementById('drag-ghost');g.textContent=rota.slots[sk(id,dk)]||'–';g.style.display='block';g.style.left=(t.clientX-30)+'px';g.style.top=(t.clientY-20)+'px';}
 function tm(e){if(!touchDragSrc)return;e.preventDefault();touchMoved=true;const t=e.touches[0];const g=document.getElementById('drag-ghost');g.style.left=(t.clientX-30)+'px';g.style.top=(t.clientY-20)+'px';clrHL();const el=document.elementFromPoint(t.clientX,t.clientY);const slot=el?.closest('.slot');if(slot&&slot.dataset.dk){slot.style.outline='2.5px dashed var(--yellow)';slot.style.outlineOffset='2px';}}
 function te(e,srcId,srcDk){document.getElementById('drag-ghost').style.display='none';clrHL();if(!touchMoved||!touchDragSrc){touchDragSrc=null;return;}const t=e.changedTouches[0];const el=document.elementFromPoint(t.clientX,t.clientY);const slot=el?.closest('.slot');if(slot&&slot.dataset.mid&&slot.dataset.dk){const tId=parseInt(slot.dataset.mid),tDk=slot.dataset.dk;if(!(touchDragSrc.id===tId&&touchDragSrc.dk===tDk))makeSwapReq(touchDragSrc.id,touchDragSrc.dk,tId,tDk);}touchDragSrc=null;}
 
@@ -978,6 +1185,43 @@ function exportCSV(){
   a.download=`rota_${view}_${fmtK(new Date())}.csv`;a.click();showToast('Exported');
 }
 
+// ── ICS calendar export ──────────────────────────────────────
+function exportICS(){
+  const members = visibleMembers();
+  let dates = [];
+  if(view==='week') dates = wkDates(weekOffset);
+  else monthWeeks(monthOffset).forEach(wk=>dates.push(...wk));
+  const stamp = new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)+'Z';
+  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Beltone//Rota//EN','CALSCALE:GREGORIAN'];
+  let count = 0;
+  members.forEach(m => {
+    dates.forEach(d => {
+      const dk = fmtK(d), s = rota.slots[sk(m.id,dk)];
+      if(!s) return;
+      const dayStr = dk.replace(/-/g,'');
+      const next = new Date(d); next.setDate(next.getDate()+1);
+      const nextStr = fmtK(next).replace(/-/g,'');
+      lines.push(
+        'BEGIN:VEVENT',
+        `UID:rota-${m.id}-${dk}@beltone`,
+        `DTSTAMP:${stamp}`,
+        `DTSTART;VALUE=DATE:${dayStr}`,
+        `DTEND;VALUE=DATE:${nextStr}`,
+        `SUMMARY:${s} — ${m.name}`,
+        `DESCRIPTION:${m.fn} • ${s==='WFO'?'Work from office':'Work from home'}`,
+        'TRANSP:TRANSPARENT',
+        'END:VEVENT'
+      );
+      count++;
+    });
+  });
+  lines.push('END:VCALENDAR');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([lines.join('\r\n')],{type:'text/calendar'}));
+  a.download=`rota_${view}_${fmtK(new Date())}.ics`;a.click();
+  showToast(`Exported ${count} events`);
+}
+
 // ── Modal utils ───────────────────────────────────────────────
 function showOverlay(id){document.getElementById(id).style.display='flex';}
 function closeM(id,e){if(e&&e.target!==e.currentTarget)return;document.getElementById(id).style.display='none';if(id==='edit-modal'){editTarget=null;editSt=null;}if(id==='del-modal'){delTarget=null;}}
@@ -985,7 +1229,7 @@ function tog(id,on){document.getElementById(id).classList.toggle('show',on);}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){['edit-modal','del-modal','copy-modal','swap-modal','appr-modal'].forEach(id=>{const el=document.getElementById(id);if(el.style.display!=='none')closeM(id);});}});
 
-seed();
+if(!loadPersisted()) seed();
 render();
 </script>
 </body>
