@@ -20,6 +20,49 @@
   --shadow:0 2px 8px rgba(28,26,21,.08),0 1px 3px rgba(28,26,21,.05);
   --shadow-lg:0 8px 32px rgba(28,26,21,.12),0 2px 8px rgba(28,26,21,.06);
 }
+body.dark{
+  --bg:#15140F;--surface:#1F1D17;--surface2:#28251D;--surface3:#332F25;
+  --border:#3A362B;--border2:#4F4A3C;--text:#F2EFE4;--text2:#B5B0A2;--text3:#7A7666;
+  --yellow:#E8E33A;--yellow-dark:#B5B12A;--yellow-light:#3A3A10;--yellow-pale:#2A2A0E;
+  --wfo-bg:#1E3318;--wfo-text:#A8E08A;--wfo-border:#3E6A30;
+  --wfh-bg:#3A1E1E;--wfh-text:#F0A0A0;--wfh-border:#6A2828;
+  --swap-bg:#1E2240;--swap-text:#A5B4FC;--swap-border:#3D4580;
+  --pending-bg:#33270A;--pending-text:#F0C040;--pending-border:#6A5018;
+  --approved-bg:#163322;--approved-text:#7ADBA0;--approved-border:#2A5A3A;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.4);
+  --shadow:0 2px 8px rgba(0,0,0,.45);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.55);
+}
+body.dark .btn-yellow{color:#15140F}
+
+/* Compact mode */
+body.compact .slot{padding:2px 6px;font-size:10px;min-width:38px}
+body.compact td{padding:4px 6px;font-size:12px}
+body.compact thead th{padding:6px 6px}
+body.compact .month-slot{padding:1px 5px;font-size:9px;min-width:32px}
+body.compact .month-slot-cell{padding:3px 2px}
+body.compact .month-name-cell{padding:5px 10px;font-size:11px}
+body.compact .month-member-row,body.compact .month-grid-hdr,body.compact .month-summary-row{grid-template-columns:130px repeat(5,1fr)}
+body.compact .month-member-row.with-totals,body.compact .month-grid-hdr.with-totals,body.compact .month-summary-row.with-totals{grid-template-columns:130px repeat(5,1fr) 60px}
+body.compact .stat{padding:8px 10px}
+body.compact .stat-val{font-size:17px}
+
+/* Per-person color chip */
+.person-chip{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(0,0,0,.15)}
+.td-name{display:flex;align-items:center;gap:8px}
+
+/* Print */
+@media print{
+  @page{size:landscape;margin:12mm}
+  body{background:#fff!important;color:#000!important}
+  .header,.stats,.toolbar,.swap-log,.panel,.legend,.del-btn,.header-actions,.toast,.overlay,.drag-ghost{display:none!important}
+  .main{padding:0;max-width:100%}
+  .table-wrap,.month-wrap{box-shadow:none;border:1px solid #999;border-radius:0}
+  .slot,.month-slot{box-shadow:none!important;border-width:1px!important}
+  tbody tr:hover,.month-member-row:hover{background:transparent!important}
+  .print-title{display:block!important;font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
+}
+.print-title{display:none}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
@@ -248,6 +291,15 @@ td{padding:9px 12px;font-size:13px;vertical-align:middle}
       <button class="view-btn active" id="vbtn-week" onclick="setView('week')">Weekly</button>
       <button class="view-btn" id="vbtn-month" onclick="setView('month')">Monthly</button>
     </div>
+    <button class="btn btn-icon" id="btn-compact" onclick="toggleCompact()" title="Compact mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <button class="btn btn-icon" id="btn-theme" onclick="toggleTheme()" title="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="btn btn-icon" onclick="window.print()" title="Print">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    </button>
     <button class="btn btn-swap" onclick="openSwapModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
       <span>Swap</span>
@@ -263,6 +315,7 @@ td{padding:9px 12px;font-size:13px;vertical-align:middle}
 </header>
 
 <main class="main">
+  <h1 class="print-title" id="print-title">Beltone — Team Rota</h1>
   <div class="stats" id="stats"></div>
 
   <div class="swap-log" id="swap-log">
@@ -480,6 +533,34 @@ const sk = (id,dk) => `${id}|${dk}`;
 const dayLbl = dk => { const d=new Date(dk); return `${DAYS[d.getDay()]} ${fmtD(d)}`; };
 const isSwapped = (mid,dk) => swaps.some(s=>s.status==='applied'&&((s.pAId==mid&&s.dayA===dk)||(s.pBId==mid&&s.dayB===dk)));
 
+// ── Per-person color palette ─────────────────────────────────
+const PERSON_PALETTE = ['#E11D48','#F97316','#EAB308','#22C55E','#06B6D4','#3B82F6','#8B5CF6','#EC4899','#14B8A6','#F43F5E','#84CC16','#A855F7'];
+const personColor = id => {
+  const idx = rota.members.findIndex(m=>m.id===id);
+  return PERSON_PALETTE[(idx<0?id:idx) % PERSON_PALETTE.length];
+};
+
+// ── Theme & compact preferences ──────────────────────────────
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+  try{localStorage.setItem('rota-theme', document.body.classList.contains('dark')?'dark':'light');}catch(e){}
+}
+function toggleCompact(){
+  document.body.classList.toggle('compact');
+  const on = document.body.classList.contains('compact');
+  document.getElementById('btn-compact').classList.toggle('btn-active', on);
+  try{localStorage.setItem('rota-compact', on?'1':'0');}catch(e){}
+}
+(function initPrefs(){
+  try{
+    if(localStorage.getItem('rota-theme')==='dark') document.body.classList.add('dark');
+    if(localStorage.getItem('rota-compact')==='1'){
+      document.body.classList.add('compact');
+      const b=document.getElementById('btn-compact'); if(b) b.classList.add('btn-active');
+    }
+  }catch(e){}
+})();
+
 // ── Seed ──────────────────────────────────────────────────────
 function seed() {
   const dates = wkDates(0);
@@ -568,7 +649,7 @@ function renderWeek() {
           ondrop="dr(event,${m.id},'${dk}')"
         >${s||'–'}${dot}</span></td>`;
       }).join('');
-      tbody += `<tr>${fnCell}<td class="td-name">${m.name}</td>${cells}
+      tbody += `<tr>${fnCell}<td class="td-name"><span class="person-chip" style="background:${personColor(m.id)}"></span>${m.name}</td>${cells}
         <td class="td-count">${wfh}</td>
         <td class="td-c"><button class="del-btn" onclick="openDel(${m.id},'${m.name}')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
@@ -629,7 +710,7 @@ function renderMonth() {
       }).join('');
       html += `<div class="month-member-row with-totals">
         <div class="month-name-cell">
-          <span class="month-fn-dot ${m.fn[0]}"></span>
+          <span class="person-chip" style="background:${personColor(m.id)}"></span>
           ${m.name}
         </div>
         ${cells}
