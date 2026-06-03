@@ -34,24 +34,17 @@ body.dark{
   --shadow-lg:0 8px 32px rgba(0,0,0,.55);
 }
 body.dark .btn-yellow{color:#15140F}
-
-/* Compact mode */
 body.compact .slot{padding:2px 6px;font-size:10px;min-width:38px}
 body.compact td{padding:4px 6px;font-size:12px}
 body.compact thead th{padding:6px 6px}
 body.compact .month-slot{padding:1px 5px;font-size:9px;min-width:32px}
 body.compact .month-slot-cell{padding:3px 2px}
 body.compact .month-name-cell{padding:5px 10px;font-size:11px}
-body.compact .month-member-row,body.compact .month-grid-hdr,body.compact .month-summary-row{grid-template-columns:130px repeat(5,1fr)}
-body.compact .month-member-row.with-totals,body.compact .month-grid-hdr.with-totals,body.compact .month-summary-row.with-totals{grid-template-columns:130px repeat(5,1fr) 60px}
+body.compact .month-member-row,.body.compact .month-grid-hdr,.body.compact .month-summary-row{grid-template-columns:130px repeat(5,1fr)}
 body.compact .stat{padding:8px 10px}
 body.compact .stat-val{font-size:17px}
-
-/* Per-person color chip */
 .person-chip{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(0,0,0,.15)}
 .td-name{display:flex;align-items:center;gap:8px}
-
-/* Print */
 @media print{
   @page{size:landscape;margin:12mm}
   body{background:#fff!important;color:#000!important}
@@ -65,17 +58,13 @@ body.compact .stat-val{font-size:17px}
 .print-title{display:none}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-
-/* Header */
 .header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm)}
 .header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--yellow)}
 .logo-area{display:flex;align-items:center;gap:12px}
 .logo-wordmark{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.5px;color:var(--text)}
 .logo-sep{width:1px;height:22px;background:var(--border2)}
 .logo-sub{font-size:12px;font-weight:500;color:var(--text3);letter-spacing:.04em;text-transform:uppercase}
-.header-actions{display:flex;align-items:center;gap:8px}
-
-/* Buttons */
+.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r-sm);border:1px solid var(--border2);background:var(--surface);color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;box-shadow:var(--shadow-sm);white-space:nowrap;line-height:1}
 .btn:hover{background:var(--surface2);border-color:var(--text3)}
 .btn:active{transform:scale(.97)}
@@ -92,30 +81,22 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--t
 .btn-approve{background:var(--approved-bg);color:var(--approved-text);border-color:var(--approved-border);font-weight:600}
 .btn-reject{background:var(--wfh-bg);color:var(--wfh-text);border-color:var(--wfh-border);font-weight:600}
 .btn-active{background:var(--yellow-pale);border-color:var(--yellow);color:var(--text);font-weight:600}
-
-/* Main */
+.btn-manage{background:var(--surface2);color:var(--text2);border-color:var(--border2)}
+.btn-manage:hover{background:var(--surface3);color:var(--text)}
 .main{max-width:1180px;margin:0 auto;padding:1.5rem 1.25rem}
-
-/* Stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:1.5rem}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
 .stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--yellow);opacity:.4}
 .stat-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
 .stat-val{font-size:22px;font-weight:700;font-family:'Syne',sans-serif;color:var(--text);letter-spacing:-1px}
 .stat-val.g{color:var(--wfo-text)}.stat-val.r{color:var(--wfh-text)}.stat-val.p{color:var(--swap-text)}
-
-/* View toggle */
 .view-toggle{display:flex;gap:4px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:3px}
 .view-btn{padding:5px 12px;border-radius:5px;border:none;background:transparent;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s}
 .view-btn.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);font-weight:600}
-
-/* Toolbar */
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:1.25rem;flex-wrap:wrap}
 .nav-area{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .period-label{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);min-width:200px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:6px 12px}
 .hint{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
-
-/* Add panel */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1.25rem;box-shadow:var(--shadow);display:none;animation:slideDown .18s ease}
 .panel.open{display:block}
 @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -125,8 +106,6 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--t
 .fg label{font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em}
 .fg input,.fg select{font-family:'Instrument Sans',sans-serif;font-size:13px;padding:8px 10px;border-radius:var(--r-sm);border:1px solid var(--border2);background:var(--surface);color:var(--text);height:36px;outline:none;transition:border-color .15s}
 .fg input:focus,.fg select:focus{border-color:var(--yellow)}
-
-/* Swap log */
 .swap-log{background:var(--surface);border:1px solid var(--swap-border);border-radius:var(--r);margin-bottom:1.25rem;box-shadow:var(--shadow);display:none;overflow:hidden}
 .swap-log.open{display:block}
 .swap-log-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--swap-bg);border-bottom:1px solid var(--swap-border)}
@@ -148,8 +127,6 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--t
 .btn-undo{width:24px;height:24px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
 .btn-undo:hover{background:var(--wfh-bg);color:var(--wfh-text);border-color:var(--wfh-border)}
 .btn-undo svg{width:11px;height:11px}
-
-/* WEEKLY TABLE */
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:520px}
 thead{background:var(--surface2)}
@@ -161,14 +138,11 @@ tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--surface2)}
 td{padding:9px 12px;font-size:13px;vertical-align:middle}
 .td-fn{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-right:1px solid var(--border)}
-.td-fn-D{color:#2A3A5A}.td-fn-O{color:#4A4A00}
 .td-name{font-weight:600;font-size:13px}
 .td-c{text-align:center}.td-count{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text2);text-align:center}
 .summary-row td{background:var(--surface2);font-size:10px;font-weight:700;color:var(--text3);text-align:center;border-top:2px solid var(--border);font-family:'DM Mono',monospace;padding:8px 12px;text-transform:uppercase;letter-spacing:.04em}
 .summary-row td:first-child,.summary-row td:nth-child(2){text-align:left;font-family:'Instrument Sans',sans-serif}
 .fn-div td{background:var(--bg);height:3px;padding:0;border:none}
-
-/* Slot badges */
 .slot{display:inline-flex;align-items:center;justify-content:center;gap:3px;border-radius:var(--r-sm);padding:5px 10px;font-size:11px;font-weight:700;min-width:52px;letter-spacing:.05em;cursor:pointer;transition:transform .12s,box-shadow .12s,opacity .12s;border:1.5px solid transparent;font-family:'DM Mono',monospace;user-select:none;touch-action:none}
 .slot:hover{transform:scale(1.07);box-shadow:var(--shadow)}
 .slot:active{transform:scale(.97)}
@@ -179,13 +153,9 @@ td{padding:9px 12px;font-size:13px;vertical-align:middle}
 .slot.swapped{outline:2.5px solid var(--swap-border);outline-offset:2px}
 .slot.dragging{opacity:.3;transform:scale(.92)}
 .swap-dot{width:5px;height:5px;border-radius:50%;background:var(--swap-text);flex-shrink:0}
-
-/* Today highlight */
 .is-today{background:var(--yellow-pale)!important}
 thead th.is-today{box-shadow:inset 0 -3px 0 var(--yellow);color:var(--yellow-dark)!important;font-weight:700!important}
 .month-slot-cell.is-today{background:var(--yellow-pale);box-shadow:inset 0 -2px 0 var(--yellow)}
-
-/* Bulk select */
 .slot.selected,.month-slot.selected{outline:2.5px solid var(--yellow)!important;outline-offset:2px;box-shadow:0 0 0 4px var(--yellow-pale)}
 body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
 .bulk-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:#fff;border-radius:30px;padding:8px 12px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);z-index:150;opacity:0;transition:all .25s;pointer-events:none}
@@ -196,12 +166,8 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
 .bulk-bar .bb-wfh{background:var(--wfh-bg);color:var(--wfh-text)}
 .bulk-bar .bb-clear{background:rgba(255,255,255,.15);color:#fff}
 .bulk-bar .bb-close{background:transparent;color:rgba(255,255,255,.6);padding:6px 8px}
-
-/* Search input */
 .search-input{font-family:'Instrument Sans',sans-serif;font-size:12px;padding:6px 10px 6px 28px;border-radius:7px;border:1px solid var(--border2);background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A59D' stroke-width='2'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 8px center;background-size:14px;color:var(--text);width:140px;outline:none;transition:border-color .15s}
 .search-input:focus{border-color:var(--yellow);width:180px}
-
-/* Stats modal */
 .stats-table{width:100%;border-collapse:collapse;font-size:13px}
 .stats-table th,.stats-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
 .stats-table th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);font-weight:600;background:var(--surface2)}
@@ -209,12 +175,12 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
 .stats-table .num{text-align:right;font-family:'DM Mono',monospace}
 .pct-bar{display:inline-block;width:60px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;vertical-align:middle;margin-right:6px}
 .pct-bar>span{display:block;height:100%;background:var(--wfo-text)}
-
 .del-btn{width:26px;height:26px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
 .del-btn:hover{background:var(--wfh-bg);color:var(--wfh-text);border-color:var(--wfh-border)}
 .del-btn svg{width:12px;height:12px}
-
-/* MONTHLY VIEW */
+.edit-name-btn{width:26px;height:26px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s;margin-right:2px}
+.edit-name-btn:hover{background:var(--yellow-pale);color:var(--yellow-dark);border-color:var(--yellow)}
+.edit-name-btn svg{width:12px;height:12px}
 .month-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
 .month-grid-hdr{display:grid;grid-template-columns:160px repeat(5,1fr);border-bottom:2px solid var(--border);background:var(--surface2)}
 .month-grid-hdr>div{padding:10px 8px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;text-align:center;border-right:1px solid var(--border)}
@@ -229,7 +195,6 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
 .month-member-row:hover{background:var(--surface2)}
 .month-name-cell{padding:8px 14px;font-weight:600;font-size:12px;display:flex;align-items:center;gap:7px;border-right:1px solid var(--border)}
 .month-fn-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.month-fn-dot.D{background:#2A3A5A}.month-fn-dot.O{background:#4A4A00}
 .month-slot-cell{text-align:center;padding:6px 4px;border-right:1px solid var(--border)}
 .month-slot-cell:last-child{border-right:none}
 .month-slot{display:inline-flex;align-items:center;justify-content:center;border-radius:5px;padding:3px 7px;font-size:10px;font-weight:700;min-width:42px;letter-spacing:.04em;cursor:pointer;transition:all .12s;border:1.5px solid transparent;font-family:'DM Mono',monospace}
@@ -242,30 +207,24 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
 .month-summary-row>div{padding:8px 4px;text-align:center;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text3);border-right:1px solid var(--border);text-transform:uppercase;letter-spacing:.04em}
 .month-summary-row>div:first-child{text-align:left;padding-left:14px;font-family:'Instrument Sans',sans-serif}
 .month-summary-row>div:last-child{border-right:none}
-/* month totals col */
 .month-grid-hdr.with-totals{grid-template-columns:160px repeat(5,1fr) 80px}
 .month-member-row.with-totals{grid-template-columns:160px repeat(5,1fr) 80px}
 .month-summary-row.with-totals{grid-template-columns:160px repeat(5,1fr) 80px}
 .totals-cell{text-align:center;padding:6px 4px;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;border-left:2px solid var(--border)}
 .totals-cell.wfo-total{color:var(--wfo-text);background:var(--wfo-bg)}
 .totals-cell.wfh-total{color:var(--wfh-text);background:var(--wfh-bg)}
-
-/* Legend */
 .legend{display:flex;gap:18px;margin-top:1.25rem;flex-wrap:wrap;align-items:center}
 .legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
 .ldot{width:30px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.04em}
 .ldot.wfo{background:var(--wfo-bg);color:var(--wfo-text);border:1px solid var(--wfo-border)}
 .ldot.wfh{background:var(--wfh-bg);color:var(--wfh-text);border:1px solid var(--wfh-border)}
 .ldot.swp{background:var(--swap-bg);color:var(--swap-text);border:1.5px solid var(--swap-border);font-size:13px}
-
-/* Drag ghost */
 .drag-ghost{position:fixed;pointer-events:none;z-index:999;background:var(--surface);border:2px solid var(--yellow);border-radius:var(--r-sm);padding:6px 12px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(3deg) scale(1.05);opacity:.92}
-
-/* Modals */
 .overlay{position:fixed;inset:0;background:rgba(28,26,21,.35);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(3px);animation:fadeIn .15s ease;padding:1rem}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal{background:var(--surface);border-radius:var(--r-lg);border:1px solid var(--border);padding:1.5rem;width:100%;max-width:400px;box-shadow:var(--shadow-lg);animation:popIn .18s ease}
 .modal.wide{max-width:480px}
+.modal.xl{max-width:620px}
 @keyframes popIn{from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1}}
 .modal h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .modal-sub{font-size:12px;color:var(--text2);margin-bottom:1.25rem;line-height:1.5}
@@ -290,15 +249,49 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
 .approval-name{font-weight:600;font-size:14px;margin-bottom:4px}
 .approval-detail{font-size:12px;color:var(--text2);font-family:'DM Mono',monospace}
 .approval-status{display:flex;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:6px}
-
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:#fff;border-radius:30px;padding:9px 20px;font-size:13px;font-weight:500;opacity:0;transition:all .25s;pointer-events:none;box-shadow:var(--shadow-lg);white-space:nowrap;z-index:999}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── MANAGE MODAL ─── */
+.manage-tabs{display:flex;gap:4px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:3px;margin-bottom:1.25rem}
+.manage-tab{flex:1;padding:7px 12px;border-radius:5px;border:none;background:transparent;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-align:center}
+.manage-tab.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);font-weight:600}
+.manage-section{display:none}
+.manage-section.active{display:block}
+.fn-list,.member-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;padding-right:2px}
+.fn-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 12px;transition:background .1s}
+.fn-row:hover{background:var(--surface3)}
+.fn-color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.fn-name{font-size:13px;font-weight:600;flex:1}
+.fn-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:1px 7px}
+.fn-actions{display:flex;gap:4px}
+.member-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 12px;transition:background .1s}
+.member-row:hover{background:var(--surface3)}
+.member-info{flex:1;display:flex;align-items:center;gap:8px}
+.member-name{font-size:13px;font-weight:600}
+.member-fn-badge{font-size:10px;font-weight:600;color:var(--text3);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:1px 7px;text-transform:uppercase;letter-spacing:.04em}
+.member-actions{display:flex;gap:4px}
+.icon-btn{width:28px;height:28px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s;color:var(--text3)}
+.icon-btn:hover{background:var(--surface);border-color:var(--text2);color:var(--text)}
+.icon-btn.danger:hover{background:var(--wfh-bg);color:var(--wfh-text);border-color:var(--wfh-border)}
+.icon-btn svg{width:13px;height:13px}
+.add-row{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap;align-items:flex-end}
+.add-row .fg{min-width:100px}
+.inline-edit{display:none;align-items:center;gap:6px;margin-top:6px}
+.inline-edit.show{display:flex}
+.inline-edit input{font-family:'Instrument Sans',sans-serif;font-size:12px;padding:5px 8px;border-radius:var(--r-sm);border:1px solid var(--border2);background:var(--surface);color:var(--text);outline:none;flex:1}
+.inline-edit input:focus{border-color:var(--yellow)}
+.fn-color-selector{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.fn-color-opt{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .1s}
+.fn-color-opt:hover,.fn-color-opt.sel{transform:scale(1.2);border-color:var(--text)}
+.divider{height:1px;background:var(--border);margin:10px 0}
+.section-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
 
 @media(max-width:640px){
   .main{padding:1rem .75rem}
   .header{padding:0 .875rem}
   .header .logo-sub{display:none}
-  .week-label,.period-label{min-width:130px;font-size:11px}
+  .period-label{min-width:130px;font-size:11px}
   .swap-sides{grid-template-columns:1fr;gap:8px}
   .swap-mid{justify-content:center;padding:4px 0}
   .stats{grid-template-columns:repeat(3,1fr)}
@@ -350,9 +343,13 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
     <button class="btn" onclick="exportCSV()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     </button>
+    <button class="btn btn-manage" onclick="openManageModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Manage
+    </button>
     <button class="btn btn-yellow" onclick="togglePanel()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Add
+      Add Member
     </button>
   </div>
 </header>
@@ -375,9 +372,9 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
   <div class="panel" id="add-panel">
     <h3>Add team member</h3>
     <div class="form-row">
-      <div class="fg"><label>Name</label><input type="text" id="new-name" placeholder="Full name"></div>
+      <div class="fg"><label>Name</label><input type="text" id="new-name" placeholder="Full name" onkeydown="if(event.key==='Enter')addMember()"></div>
       <div class="fg"><label>Function</label>
-        <select id="new-fn"><option>Delivery</option><option>Oracle</option><option>Other</option></select>
+        <select id="new-fn"></select>
       </div>
       <button class="btn btn-yellow" onclick="addMember()" style="margin-top:16px">Add</button>
       <button class="btn" onclick="togglePanel()" style="margin-top:16px">Cancel</button>
@@ -436,7 +433,7 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
   </div>
 </div>
 
-<!-- Delete modal -->
+<!-- Delete member modal -->
 <div class="overlay" id="del-modal" style="display:none" onclick="closeM('del-modal',event)">
   <div class="modal" onclick="event.stopPropagation()">
     <h3>Remove member</h3>
@@ -514,16 +511,7 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
-<div class="bulk-bar" id="bulk-bar">
-  <span class="bulk-count" id="bulk-count">0 selected</span>
-  <button class="bb-wfo" onclick="bulkSet('WFO')">🏢 WFO</button>
-  <button class="bb-wfh" onclick="bulkSet('WFH')">🏠 WFH</button>
-  <button class="bb-clear" onclick="bulkSet(null)">Clear</button>
-  <button class="bb-close" onclick="exitBulk()" title="Exit">✕</button>
-</div>
-
+<!-- Stats modal -->
 <div class="overlay" id="stats-modal" style="display:none" onclick="closeM('stats-modal',event)">
   <div class="modal wide" onclick="event.stopPropagation()" style="max-width:560px">
     <h3>
@@ -538,23 +526,141 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
   </div>
 </div>
 
+<!-- ── MANAGE MODAL ── -->
+<div class="overlay" id="manage-modal" style="display:none" onclick="closeM('manage-modal',event)">
+  <div class="modal xl" onclick="event.stopPropagation()">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Manage Team
+    </h3>
+    <p class="modal-sub">Add, rename, or remove functions and team members.</p>
+    <div class="manage-tabs">
+      <button class="manage-tab active" id="mtab-members" onclick="switchManageTab('members')">👤 Members</button>
+      <button class="manage-tab" id="mtab-functions" onclick="switchManageTab('functions')">🏷 Functions</button>
+    </div>
+
+    <!-- Members section -->
+    <div class="manage-section active" id="msec-members">
+      <div class="section-label">Team members (<span id="m-count">0</span>)</div>
+      <div class="member-list" id="member-list"></div>
+      <div class="add-row">
+        <div class="fg"><label>Name</label><input type="text" id="mg-new-name" placeholder="Full name" onkeydown="if(event.key==='Enter')mgAddMember()"></div>
+        <div class="fg"><label>Function</label><select id="mg-new-fn"></select></div>
+        <button class="btn btn-yellow" onclick="mgAddMember()" style="margin-top:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add
+        </button>
+      </div>
+    </div>
+
+    <!-- Functions section -->
+    <div class="manage-section" id="msec-functions">
+      <div class="section-label">Functions (<span id="fn-count">0</span>)</div>
+      <div class="fn-list" id="fn-list"></div>
+      <div class="divider"></div>
+      <div class="section-label">Add new function</div>
+      <div class="add-row" style="margin-top:0;padding-top:0;border-top:none">
+        <div class="fg"><label>Function name</label><input type="text" id="mg-new-fn-name" placeholder="e.g. Sales, HR…" onkeydown="if(event.key==='Enter')mgAddFunction()"></div>
+        <div class="fg" style="min-width:120px">
+          <label>Color</label>
+          <div id="mg-fn-color-pick" style="display:flex;gap:4px;flex-wrap:wrap;padding:5px 0"></div>
+        </div>
+        <button class="btn btn-yellow" onclick="mgAddFunction()" style="margin-top:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeM('manage-modal')" style="flex:1;justify-content:center">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit member modal -->
+<div class="overlay" id="edit-member-modal" style="display:none" onclick="closeM('edit-member-modal',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Edit member</h3>
+    <p class="modal-sub">Update name or function assignment.</p>
+    <div class="fg" style="margin-bottom:12px">
+      <label>Name</label>
+      <input type="text" id="em-edit-name" onkeydown="if(event.key==='Enter')saveEditMember()">
+    </div>
+    <div class="fg" style="margin-bottom:12px">
+      <label>Function</label>
+      <select id="em-edit-fn"></select>
+    </div>
+    <input type="hidden" id="em-edit-id">
+    <div class="modal-actions">
+      <button class="btn btn-yellow" onclick="saveEditMember()" style="flex:1;justify-content:center">Save</button>
+      <button class="btn" onclick="closeM('edit-member-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit function modal -->
+<div class="overlay" id="edit-fn-modal" style="display:none" onclick="closeM('edit-fn-modal',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Edit function</h3>
+    <p class="modal-sub">Rename this function. All members assigned to it will be updated.</p>
+    <div class="fg" style="margin-bottom:12px">
+      <label>Function name</label>
+      <input type="text" id="efn-name" onkeydown="if(event.key==='Enter')saveEditFn()">
+    </div>
+    <div class="fg" style="margin-bottom:12px">
+      <label>Color</label>
+      <div id="efn-color-pick" style="display:flex;gap:4px;flex-wrap:wrap;padding:5px 0"></div>
+    </div>
+    <input type="hidden" id="efn-old-name">
+    <div class="modal-actions">
+      <button class="btn btn-yellow" onclick="saveEditFn()" style="flex:1;justify-content:center">Save</button>
+      <button class="btn" onclick="closeM('edit-fn-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete function modal -->
+<div class="overlay" id="del-fn-modal" style="display:none" onclick="closeM('del-fn-modal',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Remove function</h3>
+    <p class="modal-sub" id="del-fn-text"></p>
+    <div class="fg" id="del-fn-reassign-wrap" style="margin-bottom:12px">
+      <label>Reassign members to</label>
+      <select id="del-fn-reassign"></select>
+    </div>
+    <input type="hidden" id="del-fn-name">
+    <div class="modal-actions">
+      <button class="btn btn-red" onclick="confirmDelFn()" style="flex:1;justify-content:center">Remove function</button>
+      <button class="btn" onclick="closeM('del-fn-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="bulk-bar" id="bulk-bar">
+  <span class="bulk-count" id="bulk-count">0 selected</span>
+  <button class="bb-wfo" onclick="bulkSet('WFO')">🏢 WFO</button>
+  <button class="bb-wfh" onclick="bulkSet('WFH')">🏠 WFH</button>
+  <button class="bb-clear" onclick="bulkSet(null)">Clear</button>
+  <button class="bb-close" onclick="exitBulk()" title="Exit">✕</button>
+</div>
+
 <script>
-// ── Constants ────────────────────────────────────────────────
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday'];
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const FN_COLORS = ['#E11D48','#F97316','#EAB308','#22C55E','#06B6D4','#3B82F6','#8B5CF6','#EC4899','#14B8A6','#64748B','#84CC16','#A855F7'];
 
-// ── State ────────────────────────────────────────────────────
-let view = 'week';        // 'week' | 'month'
-let weekOffset = 0;       // for weekly view
-let monthOffset = 0;      // for monthly view
+let view = 'week', weekOffset = 0, monthOffset = 0;
 let editTarget = null, editSt = null, delTarget = null;
 let dragSrc = null, touchDragSrc = null, touchMoved = false;
 let swapNextId = 1, nextMId = 100;
 let swaps = [];
-let fnFilter = '';
-let searchQ = '';
-let bulkMode = false;
-let bulkSel = new Set(); // keys: "mid|dk"
+let fnFilter = '', searchQ = '';
+let bulkMode = false, bulkSel = new Set();
+let mgNewFnColor = FN_COLORS[0];
+let efnColor = FN_COLORS[0];
 
 const rota = {
   members: [
@@ -567,7 +673,12 @@ const rota = {
     {id:7,name:'Riad',fn:'Oracle'},
     {id:8,name:'Mahmoud',fn:'Oracle'},
   ],
-  slots: {}
+  slots: {},
+  functions: [
+    {name:'Delivery', color:'#3B82F6'},
+    {name:'Oracle',   color:'#8B5CF6'},
+    {name:'Other',    color:'#64748B'},
+  ]
 };
 
 // ── Date helpers ─────────────────────────────────────────────
@@ -577,19 +688,16 @@ function wkDates(off) {
   return Array.from({length:5},(_,i)=>{ const d=new Date(sun); d.setDate(sun.getDate()+i); return d; });
 }
 function monthWeeks(off) {
-  // Returns array of week arrays (each with 5 workdays) for the target month
   const now = new Date();
   const target = new Date(now.getFullYear(), now.getMonth() + off, 1);
   const yr = target.getFullYear(), mo = target.getMonth();
   const first = new Date(yr, mo, 1), last = new Date(yr, mo+1, 0);
-  // Find first Sunday on or before first day of month
   const sun = new Date(first);
   sun.setDate(first.getDate() - first.getDay());
   const weeks = [];
   let cur = new Date(sun);
   while(cur <= last || cur.getMonth() === mo) {
     const wk = Array.from({length:5},(_,i)=>{ const d=new Date(cur); d.setDate(cur.getDate()+i); return d; });
-    // Only include week if it has at least one day in the target month
     if(wk.some(d=>d.getMonth()===mo)) weeks.push(wk);
     cur.setDate(cur.getDate()+7);
     if(cur > last && cur.getMonth() !== mo) break;
@@ -601,12 +709,15 @@ const fmtK = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-
 const sk = (id,dk) => `${id}|${dk}`;
 const dayLbl = dk => { const d=new Date(dk); return `${DAYS[d.getDay()]} ${fmtD(d)}`; };
 const isSwapped = (mid,dk) => swaps.some(s=>s.status==='applied'&&((s.pAId==mid&&s.dayA===dk)||(s.pBId==mid&&s.dayB===dk)));
-
-// ── Today helper ─────────────────────────────────────────────
 const TODAY_KEY = (()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;})();
 const isToday = dk => dk === TODAY_KEY;
 
-// ── Filter helper ────────────────────────────────────────────
+// ── Function helpers ─────────────────────────────────────────
+function getFnObj(name) { return rota.functions.find(f=>f.name===name) || {name, color:'#A8A59D'}; }
+function fnColor(name) { return getFnObj(name).color; }
+function fnNames() { return rota.functions.map(f=>f.name); }
+
+// ── Filter ───────────────────────────────────────────────────
 const visibleMembers = () => {
   const q = searchQ.trim().toLowerCase();
   return rota.members.filter(m =>
@@ -618,9 +729,21 @@ function setFnFilter(v){ fnFilter = v; persist(); render(); }
 function setSearch(v){ searchQ = v; render(); }
 function refreshFnFilter(){
   const sel = document.getElementById('fn-filter'); if(!sel) return;
-  const fns = [...new Set(rota.members.map(m=>m.fn))];
-  sel.innerHTML = '<option value="">All functions</option>' + fns.map(f=>`<option value="${f}"${f===fnFilter?' selected':''}>${f}</option>`).join('');
+  sel.innerHTML = '<option value="">All functions</option>' +
+    fnNames().map(f=>`<option value="${f}"${f===fnFilter?' selected':''}>${f}</option>`).join('');
 }
+function refreshFnSelect(selId) {
+  const sel = document.getElementById(selId); if(!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = fnNames().map(f=>`<option value="${f}"${f===cur?' selected':''}>${f}</option>`).join('');
+}
+
+// ── Per-person color palette ─────────────────────────────────
+const PERSON_PALETTE = ['#E11D48','#F97316','#EAB308','#22C55E','#06B6D4','#3B82F6','#8B5CF6','#EC4899','#14B8A6','#F43F5E','#84CC16','#A855F7'];
+const personColor = id => {
+  const idx = rota.members.findIndex(m=>m.id===id);
+  return PERSON_PALETTE[(idx<0?id:idx) % PERSON_PALETTE.length];
+};
 
 // ── Bulk edit ────────────────────────────────────────────────
 function toggleBulk(){
@@ -628,7 +751,7 @@ function toggleBulk(){
   document.body.classList.toggle('bulk-mode', bulkMode);
   document.getElementById('btn-bulk').classList.toggle('btn-active', bulkMode);
   if(!bulkMode){ bulkSel.clear(); updateBulkBar(); }
-  else { showToast('Bulk mode: tap cells to select'); updateBulkBar(); }
+  else showToast('Bulk mode: tap cells to select');
   render();
 }
 function exitBulk(){ if(bulkMode) toggleBulk(); }
@@ -636,83 +759,59 @@ function bulkCellClick(mid, dk){
   const k = sk(mid, dk);
   if(bulkSel.has(k)) bulkSel.delete(k); else bulkSel.add(k);
   updateBulkBar();
-  // toggle visual without full re-render
   document.querySelectorAll(`[data-bk="${k}"]`).forEach(el=>el.classList.toggle('selected', bulkSel.has(k)));
 }
 function updateBulkBar(){
-  const bar = document.getElementById('bulk-bar');
   const n = bulkSel.size;
   document.getElementById('bulk-count').textContent = `${n} selected`;
-  bar.classList.toggle('show', bulkMode && n>0);
+  document.getElementById('bulk-bar').classList.toggle('show', bulkMode && n>0);
 }
 function bulkSet(status){
   if(!bulkSel.size) return;
-  bulkSel.forEach(k => {
-    if(status===null) delete rota.slots[k];
-    else rota.slots[k] = status;
-  });
-  const n = bulkSel.size;
-  bulkSel.clear();
-  render();
-  showToast(`${status||'Cleared'} · ${n} cells`);
+  bulkSel.forEach(k => { if(status===null) delete rota.slots[k]; else rota.slots[k] = status; });
+  const n = bulkSel.size; bulkSel.clear(); render(); showToast(`${status||'Cleared'} · ${n} cells`);
 }
 
-// ── Per-person stats ─────────────────────────────────────────
+// ── Stats modal ───────────────────────────────────────────────
 function currentPeriodDates(){
   if(view==='week') return wkDates(weekOffset);
-  const now = new Date(), t = new Date(now.getFullYear(), now.getMonth()+monthOffset, 1);
-  const mo = t.getMonth();
   const out = [];
+  const now = new Date(), mo = new Date(now.getFullYear(), now.getMonth()+monthOffset, 1).getMonth();
   monthWeeks(monthOffset).forEach(wk => wk.forEach(d => { if(d.getMonth()===mo) out.push(d); }));
   return out;
 }
 function longestStreak(mid, dates, status){
   let best = 0, cur = 0;
-  dates.forEach(d => {
-    if(rota.slots[sk(mid, fmtK(d))] === status){ cur++; best = Math.max(best, cur); }
-    else cur = 0;
-  });
+  dates.forEach(d => { if(rota.slots[sk(mid, fmtK(d))] === status){ cur++; best = Math.max(best, cur); } else cur = 0; });
   return best;
 }
 function openStatsModal(){
   const dates = currentPeriodDates();
-  const periodLbl = document.getElementById('period-label').textContent;
-  document.getElementById('stats-sub').textContent = `${periodLbl} · ${dates.length} working days`;
-  const members = visibleMembers();
-  const rows = members.map(m => {
+  document.getElementById('stats-sub').textContent = `${document.getElementById('period-label').textContent} · ${dates.length} working days`;
+  const rows = visibleMembers().map(m => {
     const wfo = dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length;
     const wfh = dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length;
     const assigned = wfo + wfh;
     const pct = assigned ? Math.round((wfo/assigned)*100) : 0;
-    const sWfo = longestStreak(m.id, dates, 'WFO');
-    const sWfh = longestStreak(m.id, dates, 'WFH');
-    return {m, wfo, wfh, assigned, pct, sWfo, sWfh};
+    return {m, wfo, wfh, assigned, pct, sWfo:longestStreak(m.id,dates,'WFO'), sWfh:longestStreak(m.id,dates,'WFH')};
   }).sort((a,b)=>b.pct - a.pct);
-  const body = `<table class="stats-table">
-    <thead><tr><th>Member</th><th class="num">WFO</th><th class="num">WFH</th><th>WFO %</th><th class="num" title="Longest WFO streak">🏢 streak</th><th class="num" title="Longest WFH streak">🏠 streak</th></tr></thead>
-    <tbody>${rows.map(r=>`
-      <tr>
-        <td><span class="person-chip" style="background:${personColor(r.m.id)};margin-right:6px;vertical-align:middle"></span>${r.m.name} <span style="color:var(--text3);font-size:11px">· ${r.m.fn}</span></td>
-        <td class="num" style="color:var(--wfo-text);font-weight:600">${r.wfo}</td>
-        <td class="num" style="color:var(--wfh-text);font-weight:600">${r.wfh}</td>
-        <td><span class="pct-bar"><span style="width:${r.pct}%"></span></span><span style="font-family:'DM Mono',monospace;font-size:11px">${r.pct}%</span></td>
-        <td class="num">${r.sWfo}d</td>
-        <td class="num">${r.sWfh}d</td>
-      </tr>`).join('')}
-    </tbody>
-  </table>`;
-  document.getElementById('stats-body').innerHTML = body || '<p style="padding:20px;text-align:center;color:var(--text3)">No members.</p>';
+  document.getElementById('stats-body').innerHTML = `<table class="stats-table">
+    <thead><tr><th>Member</th><th class="num">WFO</th><th class="num">WFH</th><th>WFO %</th><th class="num">🏢 streak</th><th class="num">🏠 streak</th></tr></thead>
+    <tbody>${rows.map(r=>`<tr>
+      <td><span class="person-chip" style="background:${personColor(r.m.id)};margin-right:6px;vertical-align:middle"></span>${r.m.name} <span style="color:var(--text3);font-size:11px">· ${r.m.fn}</span></td>
+      <td class="num" style="color:var(--wfo-text);font-weight:600">${r.wfo}</td>
+      <td class="num" style="color:var(--wfh-text);font-weight:600">${r.wfh}</td>
+      <td><span class="pct-bar"><span style="width:${r.pct}%"></span></span><span style="font-family:'DM Mono',monospace;font-size:11px">${r.pct}%</span></td>
+      <td class="num">${r.sWfo}d</td>
+      <td class="num">${r.sWfh}d</td>
+    </tr>`).join('')}</tbody></table>`;
   showOverlay('stats-modal');
 }
 
 // ── Persistence ──────────────────────────────────────────────
-const STORAGE_KEY = 'rota-data-v1';
+const STORAGE_KEY = 'rota-data-v2';
 function persist(){
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      members: rota.members, slots: rota.slots, swaps, swapNextId, nextMId, fnFilter
-    }));
-  }catch(e){}
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({members:rota.members, slots:rota.slots, swaps, swapNextId, nextMId, fnFilter, functions:rota.functions})); }catch(e){}
 }
 function loadPersisted(){
   try{
@@ -724,35 +823,18 @@ function loadPersisted(){
     if(d.swapNextId) swapNextId = d.swapNextId;
     if(d.nextMId) nextMId = d.nextMId;
     if(d.fnFilter) fnFilter = d.fnFilter;
+    if(d.functions) rota.functions = d.functions;
     return true;
   }catch(e){ return false; }
 }
 
-// ── Per-person color palette ─────────────────────────────────
-const PERSON_PALETTE = ['#E11D48','#F97316','#EAB308','#22C55E','#06B6D4','#3B82F6','#8B5CF6','#EC4899','#14B8A6','#F43F5E','#84CC16','#A855F7'];
-const personColor = id => {
-  const idx = rota.members.findIndex(m=>m.id===id);
-  return PERSON_PALETTE[(idx<0?id:idx) % PERSON_PALETTE.length];
-};
-
-// ── Theme & compact preferences ──────────────────────────────
-function toggleTheme(){
-  document.body.classList.toggle('dark');
-  try{localStorage.setItem('rota-theme', document.body.classList.contains('dark')?'dark':'light');}catch(e){}
-}
-function toggleCompact(){
-  document.body.classList.toggle('compact');
-  const on = document.body.classList.contains('compact');
-  document.getElementById('btn-compact').classList.toggle('btn-active', on);
-  try{localStorage.setItem('rota-compact', on?'1':'0');}catch(e){}
-}
+// ── Theme & compact ──────────────────────────────────────────
+function toggleTheme(){ document.body.classList.toggle('dark'); try{localStorage.setItem('rota-theme', document.body.classList.contains('dark')?'dark':'light');}catch(e){} }
+function toggleCompact(){ document.body.classList.toggle('compact'); const on=document.body.classList.contains('compact'); document.getElementById('btn-compact').classList.toggle('btn-active',on); try{localStorage.setItem('rota-compact',on?'1':'0');}catch(e){} }
 (function initPrefs(){
   try{
     if(localStorage.getItem('rota-theme')==='dark') document.body.classList.add('dark');
-    if(localStorage.getItem('rota-compact')==='1'){
-      document.body.classList.add('compact');
-      const b=document.getElementById('btn-compact'); if(b) b.classList.add('btn-active');
-    }
+    if(localStorage.getItem('rota-compact')==='1'){ document.body.classList.add('compact'); const b=document.getElementById('btn-compact'); if(b) b.classList.add('btn-active'); }
   }catch(e){}
 })();
 
@@ -764,7 +846,7 @@ function seed() {
   .forEach(([id,arr])=>arr.forEach((v,i)=>{ rota.slots[sk(id,fmtK(dates[i]))] = v?'WFO':'WFH'; }));
 }
 
-// ── Stats ─────────────────────────────────────────────────────
+// ── Stats bar ─────────────────────────────────────────────────
 function renderStats() {
   let dates = [];
   if(view==='week') dates = wkDates(weekOffset);
@@ -775,6 +857,7 @@ function renderStats() {
   const pendSw = swaps.filter(s=>s.status!=='applied'&&s.status!=='rejected').length;
   document.getElementById('stats').innerHTML = [
     ['Members', rota.members.length,''],
+    ['Functions', rota.functions.length,'p'],
     ['WFO entries', wfoAll,'g'],
     ['WFH entries', wfhAll,'r'],
     ['Peak day', maxOff,''],
@@ -782,17 +865,12 @@ function renderStats() {
   ].map(([l,v,c])=>`<div class="stat"><div class="stat-label">${l}</div><div class="stat-val ${c}" style="font-size:${String(v).length>5?'17px':'22px'}">${v}</div></div>`).join('');
 }
 
-// ── Main render ────────────────────────────────────────────────
+// ── Render ────────────────────────────────────────────────────
 function render() {
-  updatePeriodLabel();
-  refreshFnFilter();
-  if(view==='week') renderWeek();
-  else renderMonth();
-  renderStats();
-  renderSwapLog();
-  persist();
+  updatePeriodLabel(); refreshFnFilter(); refreshFnSelect('new-fn');
+  if(view==='week') renderWeek(); else renderMonth();
+  renderStats(); renderSwapLog(); persist();
 }
-
 function updatePeriodLabel() {
   if(view==='week') {
     const d = wkDates(weekOffset);
@@ -807,7 +885,7 @@ function updatePeriodLabel() {
   }
 }
 
-// ── WEEKLY VIEW ───────────────────────────────────────────────
+// ── Weekly view ───────────────────────────────────────────────
 function renderWeek() {
   const dates = wkDates(weekOffset);
   const members = visibleMembers();
@@ -817,85 +895,65 @@ function renderWeek() {
     <th style="width:110px;text-align:left">Name</th>
     ${dates.map((d,i)=>`<th class="${isToday(fmtK(d))?'is-today':''}">${DAYS[i]}</th>`).join('')}
     <th style="width:44px">WFH</th>
-    <th style="width:32px"></th>
+    <th style="width:56px"></th>
   </tr>
   <tr class="date-row">
     <th></th><th></th>
     ${dates.map(d=>`<th class="${isToday(fmtK(d))?'is-today':''}">${fmtD(d)}</th>`).join('')}
     <th></th><th></th>
   </tr>`;
-
   let tbody = '';
   fns.forEach((fn,fi) => {
     const mems = members.filter(m=>m.fn===fn);
+    const col = fnColor(fn);
     mems.forEach((m,mi) => {
       const wfh = dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length;
-      const fnCell = mi===0 ? `<td class="td-fn td-fn-${fn[0]}" rowspan="${mems.length}">${fn}</td>` : '';
+      const fnCell = mi===0 ? `<td class="td-fn" rowspan="${mems.length}" style="color:${col}">${fn}</td>` : '';
       const cells = dates.map(d=>{
         const dk=fmtK(d), s=rota.slots[sk(m.id,dk)]||'';
         const cls=s==='WFO'?'slot-wfo':s==='WFH'?'slot-wfh':'slot-empty';
         const swCls=isSwapped(m.id,dk)?' swapped':'';
         const dot=isSwapped(m.id,dk)?'<span class="swap-dot"></span>':'';
-        const selCls = bulkSel.has(sk(m.id,dk)) ? ' selected' : '';
+        const selCls=bulkSel.has(sk(m.id,dk))?' selected':'';
         return `<td class="td-c ${isToday(dk)?'is-today':''}"><span class="slot ${cls}${swCls}${selCls}"
-          data-mid="${m.id}" data-dk="${dk}" data-name="${m.name}"
-          data-bk="${sk(m.id,dk)}"
+          data-mid="${m.id}" data-dk="${dk}" data-name="${m.name}" data-bk="${sk(m.id,dk)}"
           onclick="cellClick(${m.id},'${dk}','${m.name}')"
           draggable="true"
-          ontouchstart="ts(event,${m.id},'${dk}')"
-          ontouchmove="tm(event)" ontouchend="te(event,${m.id},'${dk}')"
-          ondragstart="ds(event,${m.id},'${dk}','${m.name}')"
-          ondragend="de(event)" ondragover="do_(event)"
-          ondrop="dr(event,${m.id},'${dk}')"
+          ontouchstart="ts(event,${m.id},'${dk}')" ontouchmove="tm(event)" ontouchend="te(event,${m.id},'${dk}')"
+          ondragstart="ds(event,${m.id},'${dk}','${m.name}')" ondragend="de(event)" ondragover="do_(event)" ondrop="dr(event,${m.id},'${dk}')"
         >${s||'–'}${dot}</span></td>`;
       }).join('');
       tbody += `<tr>${fnCell}<td class="td-name"><span class="person-chip" style="background:${personColor(m.id)}"></span>${m.name}</td>${cells}
         <td class="td-count">${wfh}</td>
-        <td class="td-c"><button class="del-btn" onclick="openDel(${m.id},'${m.name}')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-        </button></td></tr>`;
+        <td class="td-c" style="display:flex;gap:3px;align-items:center;justify-content:center;padding:9px 6px">
+          <button class="edit-name-btn" onclick="openEditMember(${m.id})" title="Edit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="del-btn" onclick="openDel(${m.id},'${m.name}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
+        </td></tr>`;
     });
     if(fi<fns.length-1) tbody+=`<tr class="fn-div"><td colspan="9"></td></tr>`;
   });
   const wfoRow = dates.map(d=>members.filter(m=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length);
   const totWfh = members.reduce((a,m)=>a+dates.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length,0);
   tbody+=`<tr class="summary-row"><td>WFO/day</td><td></td>${wfoRow.map((n,i)=>`<td class="${isToday(fmtK(dates[i]))?'is-today':''}">${n}</td>`).join('')}<td>${totWfh}</td><td></td></tr>`;
-
-  document.getElementById('view-container').innerHTML = `
-    <div class="table-wrap"><table>
-      <thead id="rota-head">${thead}</thead>
-      <tbody id="rota-body">${tbody}</tbody>
-    </table></div>`;
+  document.getElementById('view-container').innerHTML = `<div class="table-wrap"><table><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`;
 }
 
-// ── MONTHLY VIEW ──────────────────────────────────────────────
+// ── Monthly view ──────────────────────────────────────────────
 function renderMonth() {
   const weeks = monthWeeks(monthOffset);
   const now = new Date(), t = new Date(now.getFullYear(), now.getMonth()+monthOffset, 1);
   const mo = t.getMonth();
   const members = visibleMembers();
-
   let html = `<div class="month-wrap">`;
-
-  // Header
-  html += `<div class="month-grid-hdr with-totals">
-    <div>Member</div>
-    ${DAYS.map(d=>`<div>${d}</div>`).join('')}
-    <div>WFO/WFH</div>
-  </div>`;
-
+  html += `<div class="month-grid-hdr with-totals"><div>Member</div>${DAYS.map(d=>`<div>${d}</div>`).join('')}<div>WFO/WFH</div></div>`;
   weeks.forEach((wk,wi) => {
     const wkLabel = `${fmtD(wk[0])} – ${fmtD(wk[4])}`;
-    // Count WFO per day for this week (summary row)
     const wfoPerDay = wk.map(d=>members.filter(m=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length);
-
-    html += `<div class="month-week">
-      <div class="month-week-label">
-        <span style="font-weight:600;color:var(--text)">Week ${wi+1}</span>
-        <span>${wkLabel}</span>
-      </div>`;
-
-    // Member rows
+    html += `<div class="month-week"><div class="month-week-label"><span style="font-weight:600;color:var(--text)">Week ${wi+1}</span><span>${wkLabel}</span></div>`;
     members.forEach(m => {
       const wfoCount = wk.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length;
       const wfhCount = wk.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFH').length;
@@ -905,37 +963,14 @@ function renderMonth() {
         if(!inMonth) return `<div class="month-slot-cell"><span class="month-slot month-slot-empty" style="opacity:.3">—</span></div>`;
         const cls=s==='WFO'?'month-slot-wfo':s==='WFH'?'month-slot-wfh':'month-slot-empty';
         const swCls=isSwapped(m.id,dk)?' swapped':'';
-        const selCls2 = bulkSel.has(sk(m.id,dk)) ? ' selected' : '';
-        return `<div class="month-slot-cell ${isToday(dk)?'is-today':''}"><span class="month-slot ${cls}${swCls}${selCls2}"
-          data-bk="${sk(m.id,dk)}"
-          onclick="cellClick(${m.id},'${dk}','${m.name}')"
-        >${s||'–'}</span></div>`;
+        const selCls=bulkSel.has(sk(m.id,dk))?' selected':'';
+        return `<div class="month-slot-cell ${isToday(dk)?'is-today':''}"><span class="month-slot ${cls}${swCls}${selCls}" data-bk="${sk(m.id,dk)}" onclick="cellClick(${m.id},'${dk}','${m.name}')">${s||'–'}</span></div>`;
       }).join('');
-      html += `<div class="month-member-row with-totals">
-        <div class="month-name-cell">
-          <span class="person-chip" style="background:${personColor(m.id)}"></span>
-          ${m.name}
-        </div>
-        ${cells}
-        <div class="totals-cell">
-          <span style="color:var(--wfo-text);font-weight:700">${wfoCount}</span>
-          <span style="color:var(--text3)"> / </span>
-          <span style="color:var(--wfh-text);font-weight:700">${wfhCount}</span>
-        </div>
-      </div>`;
+      html += `<div class="month-member-row with-totals"><div class="month-name-cell"><span class="person-chip" style="background:${personColor(m.id)}"></span>${m.name}</div>${cells}<div class="totals-cell"><span style="color:var(--wfo-text);font-weight:700">${wfoCount}</span><span style="color:var(--text3)"> / </span><span style="color:var(--wfh-text);font-weight:700">${wfhCount}</span></div></div>`;
     });
-
-    // WFO per day summary
-    html += `<div class="month-summary-row with-totals">
-      <div>WFO/day</div>
-      ${wfoPerDay.map(n=>`<div>${n}</div>`).join('')}
-      <div>${wfoPerDay.reduce((a,b)=>a+b,0)}</div>
-    </div>`;
-
-    html += `</div>`; // close month-week
+    html += `<div class="month-summary-row with-totals"><div>WFO/day</div>${wfoPerDay.map(n=>`<div>${n}</div>`).join('')}<div>${wfoPerDay.reduce((a,b)=>a+b,0)}</div></div>`;
+    html += `</div>`;
   });
-
-  // Grand totals row for the whole month
   const allDays = [];
   weeks.forEach(wk=>wk.forEach(d=>{ if(d.getMonth()===mo) allDays.push(d); }));
   const totalWfo = members.reduce((a,m)=>a+allDays.filter(d=>rota.slots[sk(m.id,fmtK(d))]==='WFO').length,0);
@@ -944,20 +979,13 @@ function renderMonth() {
     <span style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Monthly totals</span>
     <span style="font-size:13px;font-weight:700;color:var(--wfo-text)">WFO: ${totalWfo}</span>
     <span style="font-size:13px;font-weight:700;color:var(--wfh-text)">WFH: ${totalWfh}</span>
-    <span style="font-size:12px;color:var(--text3)">${allDays.length} working days × ${members.length} members = ${allDays.length*members.length} slots</span>
-  </div>`;
-
-  html += `</div>`;
+    <span style="font-size:12px;color:var(--text3)">${allDays.length} days × ${members.length} members</span>
+  </div></div>`;
   document.getElementById('view-container').innerHTML = html;
 }
 
-// ── View switching ────────────────────────────────────────────
-function setView(v) {
-  view = v;
-  document.getElementById('vbtn-week').classList.toggle('active', v==='week');
-  document.getElementById('vbtn-month').classList.toggle('active', v==='month');
-  render();
-}
+// ── View / nav ────────────────────────────────────────────────
+function setView(v) { view=v; document.getElementById('vbtn-week').classList.toggle('active',v==='week'); document.getElementById('vbtn-month').classList.toggle('active',v==='month'); render(); }
 function shiftPeriod(d) { if(view==='week') weekOffset+=d; else monthOffset+=d; render(); }
 function goNow() { weekOffset=0; monthOffset=0; render(); }
 
@@ -965,89 +993,247 @@ function goNow() { weekOffset=0; monthOffset=0; render(); }
 function openCopyModal() {
   document.getElementById('copy-modal-title').textContent = view==='week' ? 'Copy previous week' : 'Copy previous month';
   let prevDates=[], currDates=[];
-  if(view==='week') {
-    prevDates = wkDates(weekOffset-1);
-    currDates = wkDates(weekOffset);
-    document.getElementById('copy-sub').textContent = `${fmtD(prevDates[0])} – ${fmtD(prevDates[4])} → ${fmtD(currDates[0])} – ${fmtD(currDates[4])}`;
-  } else {
-    monthWeeks(monthOffset-1).forEach(wk=>prevDates.push(...wk));
-    monthWeeks(monthOffset).forEach(wk=>currDates.push(...wk));
-    const pT = new Date(new Date().getFullYear(), new Date().getMonth()+monthOffset-1, 1);
-    const cT = new Date(new Date().getFullYear(), new Date().getMonth()+monthOffset, 1);
-    document.getElementById('copy-sub').textContent = `${MONTHS[pT.getMonth()]} ${pT.getFullYear()} → ${MONTHS[cT.getMonth()]} ${cT.getFullYear()}`;
-  }
+  if(view==='week') { prevDates=wkDates(weekOffset-1); currDates=wkDates(weekOffset); document.getElementById('copy-sub').textContent = `${fmtD(prevDates[0])} – ${fmtD(prevDates[4])} → ${fmtD(currDates[0])} – ${fmtD(currDates[4])}`; }
+  else { monthWeeks(monthOffset-1).forEach(wk=>prevDates.push(...wk)); monthWeeks(monthOffset).forEach(wk=>currDates.push(...wk)); const pT=new Date(new Date().getFullYear(),new Date().getMonth()+monthOffset-1,1),cT=new Date(new Date().getFullYear(),new Date().getMonth()+monthOffset,1); document.getElementById('copy-sub').textContent=`${MONTHS[pT.getMonth()]} ${pT.getFullYear()} → ${MONTHS[cT.getMonth()]} ${cT.getFullYear()}`; }
   const hasP=rota.members.some(m=>prevDates.some(d=>rota.slots[sk(m.id,fmtK(d))]));
   const hasC=rota.members.some(m=>currDates.some(d=>rota.slots[sk(m.id,fmtK(d))]));
-  tog('copy-warn', hasC); tog('copy-empty', !hasP);
+  tog('copy-warn',hasC); tog('copy-empty',!hasP);
   const btn=document.getElementById('copy-btn'); btn.disabled=!hasP; btn.style.opacity=hasP?'1':'.4';
   showOverlay('copy-modal');
 }
-
 function confirmCopy() {
-  let prevDates=[], currDates=[];
   if(view==='week') {
-    prevDates=wkDates(weekOffset-1); currDates=wkDates(weekOffset);
+    const prevDates=wkDates(weekOffset-1), currDates=wkDates(weekOffset);
+    rota.members.forEach(m=>currDates.forEach(d=>{ delete rota.slots[sk(m.id,fmtK(d))]; }));
+    let n=0; rota.members.forEach(m=>prevDates.forEach((pd,i)=>{ const v=rota.slots[sk(m.id,fmtK(pd))]; if(v){rota.slots[sk(m.id,fmtK(currDates[i]))]=v; n++;} }));
+    closeM('copy-modal'); render(); showToast(`Copied ${n} entries`);
   } else {
-    // Match day-of-week to day-of-week across months
     const prevWeeks=monthWeeks(monthOffset-1), currWeeks=monthWeeks(monthOffset);
-    const maxW=Math.min(prevWeeks.length, currWeeks.length);
     let n=0;
-    for(let wi=0; wi<maxW; wi++) {
-      for(let di=0; di<5; di++) {
-        const pD=prevWeeks[wi][di], cD=currWeeks[wi][di];
-        const pK=fmtK(pD), cK=fmtK(cD);
+    for(let wi=0;wi<Math.min(prevWeeks.length,currWeeks.length);wi++) {
+      for(let di=0;di<5;di++) {
+        const pD=prevWeeks[wi][di],cD=currWeeks[wi][di],pK=fmtK(pD),cK=fmtK(cD);
         rota.members.forEach(m=>{ delete rota.slots[sk(m.id,cK)]; });
         rota.members.forEach(m=>{ const v=rota.slots[sk(m.id,pK)]; if(v){rota.slots[sk(m.id,cK)]=v; n++;} });
       }
     }
-    closeM('copy-modal'); render(); showToast(`Copied ${n} entries from previous month`); return;
+    closeM('copy-modal'); render(); showToast(`Copied ${n} entries from previous month`);
   }
-  rota.members.forEach(m=>currDates.forEach(d=>{ delete rota.slots[sk(m.id,fmtK(d))]; }));
-  let n=0; rota.members.forEach(m=>prevDates.forEach((pd,i)=>{ const v=rota.slots[sk(m.id,fmtK(pd))]; if(v){rota.slots[sk(m.id,fmtK(currDates[i]))]=v; n++;} }));
-  closeM('copy-modal'); render(); showToast(`Copied ${n} entries`);
 }
 
 // ── Edit cell ─────────────────────────────────────────────────
-function cellClick(id, dk, name){
-  if(bulkMode){ bulkCellClick(id, dk); return; }
-  openEdit(id, dk, name);
-}
-function openEdit(id,dk,name) {
-  editTarget={id,dk}; editSt=rota.slots[sk(id,dk)]||null;
-  document.getElementById('em-name').textContent=name;
-  const d=new Date(dk); document.getElementById('em-date').textContent=`${DAYS[d.getDay()]}  ·  ${fmtD(d)}`;
-  updateStBtns(); showOverlay('edit-modal');
-}
+function cellClick(id,dk,name){ if(bulkMode){ bulkCellClick(id,dk); return; } openEdit(id,dk,name); }
+function openEdit(id,dk,name){ editTarget={id,dk}; editSt=rota.slots[sk(id,dk)]||null; document.getElementById('em-name').textContent=name; const d=new Date(dk); document.getElementById('em-date').textContent=`${DAYS[d.getDay()]}  ·  ${fmtD(d)}`; updateStBtns(); showOverlay('edit-modal'); }
 function selSt(s){editSt=s;updateStBtns();}
-function updateStBtns(){
-  document.getElementById('st-wfo').className='st-btn'+(editSt==='WFO'?' sel-wfo':'');
-  document.getElementById('st-wfh').className='st-btn'+(editSt==='WFH'?' sel-wfh':'');
+function updateStBtns(){ document.getElementById('st-wfo').className='st-btn'+(editSt==='WFO'?' sel-wfo':''); document.getElementById('st-wfh').className='st-btn'+(editSt==='WFH'?' sel-wfh':''); }
+function saveEdit(){if(!editTarget||!editSt)return; rota.slots[sk(editTarget.id,editTarget.dk)]=editSt; closeM('edit-modal'); render(); showToast('Saved');}
+function clearEdit(){if(!editTarget)return; delete rota.slots[sk(editTarget.id,editTarget.dk)]; closeM('edit-modal'); render(); showToast('Cleared');}
+
+// ── Delete member ─────────────────────────────────────────────
+function openDel(id,name){delTarget=id;document.getElementById('del-text').textContent=`Remove "${name}" and all their schedule data?`;showOverlay('del-modal');}
+function confirmDel(){rota.members=rota.members.filter(m=>m.id!==delTarget);closeM('del-modal');render();showToast('Member removed');}
+
+// ── Quick add from top panel ──────────────────────────────────
+function togglePanel(){document.getElementById('add-panel').classList.toggle('open');}
+function addMember(){
+  const name=document.getElementById('new-name').value.trim(), fn=document.getElementById('new-fn').value;
+  if(!name){showToast('Enter a name');return;}
+  rota.members.push({id:nextMId++,name,fn});
+  document.getElementById('new-name').value='';
+  document.getElementById('add-panel').classList.remove('open');
+  render(); showToast(`${name} added`);
 }
-function saveEdit(){if(!editTarget||!editSt)return;rota.slots[sk(editTarget.id,editTarget.dk)]=editSt;closeM('edit-modal');render();showToast('Saved');}
-function clearEdit(){if(!editTarget)return;delete rota.slots[sk(editTarget.id,editTarget.dk)];closeM('edit-modal');render();showToast('Cleared');}
 
-// ── Delete ────────────────────────────────────────────────────
-function openDel(id,name){delTarget=id;document.getElementById('del-text').textContent=`Remove "${name}"?`;showOverlay('del-modal');}
-function confirmDel(){rota.members=rota.members.filter(m=>m.id!==delTarget);closeM('del-modal');render();showToast('Removed');}
+// ── Edit member ───────────────────────────────────────────────
+function openEditMember(id){
+  const m=rota.members.find(x=>x.id===id); if(!m) return;
+  document.getElementById('em-edit-name').value=m.name;
+  document.getElementById('em-edit-id').value=id;
+  refreshFnSelect('em-edit-fn');
+  document.getElementById('em-edit-fn').value=m.fn;
+  showOverlay('edit-member-modal');
+}
+function saveEditMember(){
+  const id=parseInt(document.getElementById('em-edit-id').value);
+  const name=document.getElementById('em-edit-name').value.trim();
+  const fn=document.getElementById('em-edit-fn').value;
+  if(!name){showToast('Enter a name');return;}
+  const m=rota.members.find(x=>x.id===id); if(!m)return;
+  m.name=name; m.fn=fn;
+  closeM('edit-member-modal'); render(); showToast('Member updated');
+}
 
-// ── Drag & Drop ───────────────────────────────────────────────
+// ── MANAGE MODAL ─────────────────────────────────────────────
+function openManageModal(){
+  renderMemberList();
+  renderFnList();
+  refreshFnSelect('mg-new-fn');
+  buildColorPicker('mg-fn-color-pick', mgNewFnColor, c=>{ mgNewFnColor=c; });
+  document.getElementById('m-count').textContent = rota.members.length;
+  document.getElementById('fn-count').textContent = rota.functions.length;
+  showOverlay('manage-modal');
+}
+function switchManageTab(tab){
+  ['members','functions'].forEach(t=>{
+    document.getElementById(`mtab-${t}`).classList.toggle('active',t===tab);
+    document.getElementById(`msec-${t}`).classList.toggle('active',t===tab);
+  });
+}
+function renderMemberList(){
+  document.getElementById('m-count').textContent = rota.members.length;
+  const el=document.getElementById('member-list');
+  if(!rota.members.length){ el.innerHTML=`<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No members yet.</div>`; return; }
+  el.innerHTML=rota.members.map(m=>`
+    <div class="member-row" id="mr-${m.id}">
+      <div class="member-info">
+        <span class="person-chip" style="background:${personColor(m.id)}"></span>
+        <span class="member-name">${m.name}</span>
+        <span class="member-fn-badge" style="border-color:${fnColor(m.fn)};color:${fnColor(m.fn)}">${m.fn}</span>
+      </div>
+      <div class="member-actions">
+        <button class="icon-btn" onclick="openEditMemberInManage(${m.id})" title="Edit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="icon-btn danger" onclick="openDelFromManage(${m.id},'${m.name.replace(/'/g,"\\'")}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+        </button>
+      </div>
+    </div>`).join('');
+}
+function openEditMemberInManage(id){
+  closeM('manage-modal');
+  openEditMember(id);
+}
+function openDelFromManage(id,name){
+  closeM('manage-modal');
+  openDel(id,name);
+}
+function mgAddMember(){
+  const name=document.getElementById('mg-new-name').value.trim(), fn=document.getElementById('mg-new-fn').value;
+  if(!name){showToast('Enter a name');return;}
+  rota.members.push({id:nextMId++,name,fn});
+  document.getElementById('mg-new-name').value='';
+  render(); renderMemberList(); renderFnList();
+  document.getElementById('m-count').textContent=rota.members.length;
+  showToast(`${name} added`);
+}
+
+// ── Functions management ──────────────────────────────────────
+function renderFnList(){
+  document.getElementById('fn-count').textContent = rota.functions.length;
+  const el=document.getElementById('fn-list');
+  if(!rota.functions.length){ el.innerHTML=`<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No functions yet.</div>`; return; }
+  el.innerHTML=rota.functions.map(fn=>{
+    const count=rota.members.filter(m=>m.fn===fn.name).length;
+    return `<div class="fn-row">
+      <span class="fn-color-dot" style="background:${fn.color}"></span>
+      <span class="fn-name">${fn.name}</span>
+      <span class="fn-count">${count} member${count!==1?'s':''}</span>
+      <div class="fn-actions">
+        <button class="icon-btn" onclick="openEditFn('${fn.name.replace(/'/g,"\\'")}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="icon-btn danger" onclick="openDelFn('${fn.name.replace(/'/g,"\\'")}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function mgAddFunction(){
+  const name=document.getElementById('mg-new-fn-name').value.trim();
+  if(!name){showToast('Enter a function name');return;}
+  if(rota.functions.find(f=>f.name.toLowerCase()===name.toLowerCase())){showToast('Function already exists');return;}
+  rota.functions.push({name, color:mgNewFnColor});
+  document.getElementById('mg-new-fn-name').value='';
+  render(); renderFnList(); renderMemberList();
+  refreshFnSelect('mg-new-fn');
+  document.getElementById('fn-count').textContent=rota.functions.length;
+  showToast(`Function "${name}" added`);
+}
+
+// ── Color picker builder ──────────────────────────────────────
+function buildColorPicker(containerId, selectedColor, onChange){
+  const el=document.getElementById(containerId); if(!el)return;
+  el.innerHTML=FN_COLORS.map(c=>`<span class="fn-color-opt${c===selectedColor?' sel':''}" style="background:${c}" data-c="${c}" onclick="cpClick('${containerId}','${c}')"></span>`).join('');
+  el._onChange=onChange;
+}
+function cpClick(containerId, color){
+  const el=document.getElementById(containerId); if(!el)return;
+  el.querySelectorAll('.fn-color-opt').forEach(s=>s.classList.toggle('sel', s.dataset.c===color));
+  if(el._onChange) el._onChange(color);
+  if(containerId==='mg-fn-color-pick') mgNewFnColor=color;
+  if(containerId==='efn-color-pick') efnColor=color;
+}
+
+// ── Edit function modal ───────────────────────────────────────
+function openEditFn(name){
+  const fn=rota.functions.find(f=>f.name===name); if(!fn)return;
+  document.getElementById('efn-name').value=fn.name;
+  document.getElementById('efn-old-name').value=fn.name;
+  efnColor=fn.color;
+  buildColorPicker('efn-color-pick', fn.color, c=>{ efnColor=c; });
+  showOverlay('edit-fn-modal');
+}
+function saveEditFn(){
+  const oldName=document.getElementById('efn-old-name').value;
+  const newName=document.getElementById('efn-name').value.trim();
+  if(!newName){showToast('Enter a name');return;}
+  if(newName!==oldName && rota.functions.find(f=>f.name.toLowerCase()===newName.toLowerCase())){showToast('Function name already exists');return;}
+  const fn=rota.functions.find(f=>f.name===oldName); if(!fn)return;
+  fn.name=newName; fn.color=efnColor;
+  rota.members.forEach(m=>{ if(m.fn===oldName) m.fn=newName; });
+  if(fnFilter===oldName) fnFilter=newName;
+  closeM('edit-fn-modal'); render(); renderFnList(); renderMemberList();
+  refreshFnSelect('mg-new-fn');
+  showToast(`Function updated to "${newName}"`);
+}
+
+// ── Delete function modal ─────────────────────────────────────
+function openDelFn(name){
+  const count=rota.members.filter(m=>m.fn===name).length;
+  document.getElementById('del-fn-name').value=name;
+  document.getElementById('del-fn-text').textContent=`Remove function "${name}"? ${count?`${count} member(s) are assigned to it.`:'No members assigned.'}`;
+  const reassignWrap=document.getElementById('del-fn-reassign-wrap');
+  const others=rota.functions.filter(f=>f.name!==name);
+  if(count&&others.length){
+    const sel=document.getElementById('del-fn-reassign');
+    sel.innerHTML=others.map(f=>`<option value="${f.name}">${f.name}</option>`).join('');
+    reassignWrap.style.display='block';
+  } else {
+    reassignWrap.style.display='none';
+  }
+  showOverlay('del-fn-modal');
+}
+function confirmDelFn(){
+  const name=document.getElementById('del-fn-name').value;
+  const others=rota.functions.filter(f=>f.name!==name);
+  const count=rota.members.filter(m=>m.fn===name).length;
+  if(count&&others.length){
+    const reassign=document.getElementById('del-fn-reassign').value;
+    rota.members.forEach(m=>{ if(m.fn===name) m.fn=reassign; });
+  } else if(count&&!others.length){
+    // no other function; keep or create default
+    rota.functions.push({name:'Other',color:'#64748B'});
+    rota.members.forEach(m=>{ if(m.fn===name) m.fn='Other'; });
+  }
+  rota.functions=rota.functions.filter(f=>f.name!==name);
+  if(fnFilter===name) fnFilter='';
+  closeM('del-fn-modal'); render(); renderFnList(); renderMemberList();
+  refreshFnSelect('mg-new-fn');
+  showToast(`Function "${name}" removed`);
+}
+
+// ── Drag & drop ───────────────────────────────────────────────
 function ds(e,id,dk,name){if(bulkMode){e.preventDefault();return;}dragSrc={id,dk,name};e.dataTransfer.effectAllowed='move';e.target.classList.add('dragging');setTimeout(()=>e.target.classList.remove('dragging'),0);}
 function de(e){dragSrc=null;clrHL();}
 function do_(e){e.preventDefault();e.dataTransfer.dropEffect='move';clrHL();e.currentTarget.style.outline='2.5px dashed var(--yellow)';e.currentTarget.style.outlineOffset='2px';}
 function dr(e,id,dk){e.preventDefault();clrHL();if(!dragSrc||(dragSrc.id===id&&dragSrc.dk===dk))return;makeSwapReq(dragSrc.id,dragSrc.dk,id,dk);}
 function clrHL(){document.querySelectorAll('.slot').forEach(s=>{s.style.outline='';s.style.outlineOffset='';});}
-
-// Touch
 function ts(e,id,dk){if(bulkMode)return;touchDragSrc={id,dk};touchMoved=false;const t=e.touches[0];const g=document.getElementById('drag-ghost');g.textContent=rota.slots[sk(id,dk)]||'–';g.style.display='block';g.style.left=(t.clientX-30)+'px';g.style.top=(t.clientY-20)+'px';}
 function tm(e){if(!touchDragSrc)return;e.preventDefault();touchMoved=true;const t=e.touches[0];const g=document.getElementById('drag-ghost');g.style.left=(t.clientX-30)+'px';g.style.top=(t.clientY-20)+'px';clrHL();const el=document.elementFromPoint(t.clientX,t.clientY);const slot=el?.closest('.slot');if(slot&&slot.dataset.dk){slot.style.outline='2.5px dashed var(--yellow)';slot.style.outlineOffset='2px';}}
 function te(e,srcId,srcDk){document.getElementById('drag-ghost').style.display='none';clrHL();if(!touchMoved||!touchDragSrc){touchDragSrc=null;return;}const t=e.changedTouches[0];const el=document.elementFromPoint(t.clientX,t.clientY);const slot=el?.closest('.slot');if(slot&&slot.dataset.mid&&slot.dataset.dk){const tId=parseInt(slot.dataset.mid),tDk=slot.dataset.dk;if(!(touchDragSrc.id===tId&&touchDragSrc.dk===tDk))makeSwapReq(touchDragSrc.id,touchDragSrc.dk,tId,tDk);}touchDragSrc=null;}
-
-function makeSwapReq(aId,aDk,bId,bDk){
-  const mA=rota.members.find(m=>m.id==aId),mB=rota.members.find(m=>m.id==bId);
-  if(!mA||!mB)return;
-  const sw={id:swapNextId++,pAId:aId,pAName:mA.name,dayA:aDk,stA:rota.slots[sk(aId,aDk)]||'–',pBId:bId,pBName:mB.name,dayB:bDk,stB:rota.slots[sk(bId,bDk)]||'–',aApproved:false,bApproved:false,status:'pending'};
-  swaps.push(sw);render();document.getElementById('swap-log').classList.add('open');showToast(`Swap request #${sw.id} created`);openApproval(sw.id);
-}
+function makeSwapReq(aId,aDk,bId,bDk){const mA=rota.members.find(m=>m.id==aId),mB=rota.members.find(m=>m.id==bId);if(!mA||!mB)return;const sw={id:swapNextId++,pAId:aId,pAName:mA.name,dayA:aDk,stA:rota.slots[sk(aId,aDk)]||'–',pBId:bId,pBName:mB.name,dayB:bDk,stB:rota.slots[sk(bId,bDk)]||'–',aApproved:false,bApproved:false,status:'pending'};swaps.push(sw);render();document.getElementById('swap-log').classList.add('open');showToast(`Swap request #${sw.id} created`);openApproval(sw.id);}
 
 // ── Swap modal ────────────────────────────────────────────────
 function openSwapModal(){
@@ -1059,27 +1245,18 @@ function openSwapModal(){
   const btn=document.getElementById('sw-submit');btn.disabled=true;btn.style.opacity='.4';
   showOverlay('swap-modal');
 }
-function onSwPChange(){
-  const pA=document.getElementById('sw-pa').value,pB=document.getElementById('sw-pb').value;
-  popDays('sw-da',pA);popDays('sw-db',pB);updateSwPreview();
-}
-function popDays(selId,mId){
-  const sel=document.getElementById(selId);sel.innerHTML='<option value="">Select day…</option>';
-  if(!mId)return;
-  // Use current week's dates for swap
-  wkDates(weekOffset).forEach(d=>{const dk=fmtK(d),s=rota.slots[sk(mId,dk)]||'–';const o=document.createElement('option');o.value=dk;o.textContent=`${DAYS[d.getDay()]}  (${s})`;sel.appendChild(o);});
-}
+function onSwPChange(){const pA=document.getElementById('sw-pa').value,pB=document.getElementById('sw-pb').value;popDays('sw-da',pA);popDays('sw-db',pB);updateSwPreview();}
+function popDays(selId,mId){const sel=document.getElementById(selId);sel.innerHTML='<option value="">Select day…</option>';if(!mId)return;wkDates(weekOffset).forEach(d=>{const dk=fmtK(d),s=rota.slots[sk(mId,dk)]||'–';const o=document.createElement('option');o.value=dk;o.textContent=`${DAYS[d.getDay()]}  (${s})`;sel.appendChild(o);});}
 function updateSwPreview(){
   const pAId=document.getElementById('sw-pa').value,pBId=document.getElementById('sw-pb').value;
   const dayA=document.getElementById('sw-da').value,dayB=document.getElementById('sw-db').value;
-  const prev=document.getElementById('sw-preview'),alert=document.getElementById('sw-alert');
-  const btn=document.getElementById('sw-submit');
-  prev.classList.remove('show');alert.classList.remove('show');btn.disabled=true;btn.style.opacity='.4';
+  const prev=document.getElementById('sw-preview'),alert_=document.getElementById('sw-alert'),btn=document.getElementById('sw-submit');
+  prev.classList.remove('show');alert_.classList.remove('show');btn.disabled=true;btn.style.opacity='.4';
   if(!pAId||!pBId||!dayA||!dayB)return;
-  if(pAId===pBId&&dayA===dayB){alert.textContent='⚠️ Same person & same day.';alert.classList.add('show');return;}
+  if(pAId===pBId&&dayA===dayB){alert_.textContent='⚠️ Same person & same day.';alert_.classList.add('show');return;}
   const mA=rota.members.find(m=>m.id==pAId),mB=rota.members.find(m=>m.id==pBId);
   const stA=rota.slots[sk(pAId,dayA)]||'–',stB=rota.slots[sk(pBId,dayB)]||'–';
-  prev.innerHTML=`<strong>${mA.name}</strong> <code style="font-family:'DM Mono',monospace;font-size:10px;background:white;border:1px solid var(--swap-border);border-radius:3px;padding:1px 5px">${stA}</code> on <strong>${dayLbl(dayA)}</strong><br>⇅ swaps with<br><strong>${mB.name}</strong> <code style="font-family:'DM Mono',monospace;font-size:10px;background:white;border:1px solid var(--swap-border);border-radius:3px;padding:1px 5px">${stB}</code> on <strong>${dayLbl(dayB)}</strong><br><span style="font-size:11px;margin-top:4px;display:block;color:var(--swap-text)">⚠ Both must approve before the schedule updates.</span>`;
+  prev.innerHTML=`<strong>${mA.name}</strong> <code style="font-family:'DM Mono',monospace;font-size:10px;background:white;border:1px solid var(--swap-border);border-radius:3px;padding:1px 5px">${stA}</code> on <strong>${dayLbl(dayA)}</strong><br>⇅ swaps with<br><strong>${mB.name}</strong> <code style="font-family:'DM Mono',monospace;font-size:10px;background:white;border:1px solid var(--swap-border);border-radius:3px;padding:1px 5px">${stB}</code> on <strong>${dayLbl(dayB)}</strong>`;
   prev.classList.add('show');btn.disabled=false;btn.style.opacity='1';
 }
 function submitSwapReq(){
@@ -1094,27 +1271,14 @@ function submitSwapReq(){
 function openApproval(swapId){
   const sw=swaps.find(s=>s.id===swapId);if(!sw)return;
   document.getElementById('appr-desc').textContent=`Swap #${sw.id}: ${sw.pAName} (${dayLbl(sw.dayA)}) ⇆ ${sw.pBName} (${dayLbl(sw.dayB)})`;
-  const aActions=sw.status==='pending'||sw.status==='b-approved'?`<div style="display:flex;gap:6px"><button class="btn btn-approve" style="font-size:11px;padding:5px 10px" onclick="approveSwap(${sw.id},'a')">✓ Approve</button><button class="btn btn-reject" style="font-size:11px;padding:5px 10px" onclick="rejectSwap(${sw.id})">✗ Reject</button></div>`:'';
-  const bActions=sw.status==='pending'||sw.status==='a-approved'?`<div style="display:flex;gap:6px"><button class="btn btn-approve" style="font-size:11px;padding:5px 10px" onclick="approveSwap(${sw.id},'b')">✓ Approve</button><button class="btn btn-reject" style="font-size:11px;padding:5px 10px" onclick="rejectSwap(${sw.id})">✗ Reject</button></div>`:'';
+  const canAct=sw.status!=='applied'&&sw.status!=='rejected';
+  const aAct=canAct&&!sw.aApproved?`<div style="display:flex;gap:6px"><button class="btn btn-approve" style="font-size:11px;padding:5px 10px" onclick="approveSwap(${sw.id},'a')">✓ Approve</button><button class="btn btn-reject" style="font-size:11px;padding:5px 10px" onclick="rejectSwap(${sw.id})">✗ Reject</button></div>`:'';
+  const bAct=canAct&&!sw.bApproved?`<div style="display:flex;gap:6px"><button class="btn btn-approve" style="font-size:11px;padding:5px 10px" onclick="approveSwap(${sw.id},'b')">✓ Approve</button><button class="btn btn-reject" style="font-size:11px;padding:5px 10px" onclick="rejectSwap(${sw.id})">✗ Reject</button></div>`:'';
   document.getElementById('appr-cards').innerHTML=`
-    <div class="approval-card a">
-      <div class="approval-name">👤 ${sw.pAName}</div>
-      <div class="approval-detail">${sw.stA} on ${dayLbl(sw.dayA)} → becomes ${sw.stB}</div>
-      <div class="approval-status">
-        <span style="font-size:12px;color:var(--text2)">${sw.aApproved?'✅ Approved':'⏳ Pending approval'}</span>
-        ${aActions}
-      </div>
-    </div>
-    <div class="approval-card b">
-      <div class="approval-name">👤 ${sw.pBName}</div>
-      <div class="approval-detail">${sw.stB} on ${dayLbl(sw.dayB)} → becomes ${sw.stA}</div>
-      <div class="approval-status">
-        <span style="font-size:12px;color:var(--text2)">${sw.bApproved?'✅ Approved':'⏳ Pending approval'}</span>
-        ${bActions}
-      </div>
-    </div>`;
+    <div class="approval-card a"><div class="approval-name">👤 ${sw.pAName}</div><div class="approval-detail">${sw.stA} on ${dayLbl(sw.dayA)} → becomes ${sw.stB}</div><div class="approval-status"><span style="font-size:12px;color:var(--text2)">${sw.aApproved?'✅ Approved':'⏳ Pending'}</span>${aAct}</div></div>
+    <div class="approval-card b"><div class="approval-name">👤 ${sw.pBName}</div><div class="approval-detail">${sw.stB} on ${dayLbl(sw.dayB)} → becomes ${sw.stA}</div><div class="approval-status"><span style="font-size:12px;color:var(--text2)">${sw.bApproved?'✅ Approved':'⏳ Pending'}</span>${bAct}</div></div>`;
   const note=document.getElementById('appr-note');
-  const msgs={applied:'✅ Both approved — swap applied to schedule!',rejected:'❌ Swap was rejected.','a-approved':`⏳ Waiting for ${sw.pBName} to approve.`,'b-approved':`⏳ Waiting for ${sw.pAName} to approve.`};
+  const msgs={applied:'✅ Both approved — swap applied!',rejected:'❌ Swap rejected.','a-approved':`⏳ Waiting for ${sw.pBName}.`,'b-approved':`⏳ Waiting for ${sw.pAName}.`};
   if(msgs[sw.status]){note.textContent=msgs[sw.status];note.classList.add('show');}else{note.classList.remove('show');}
   showOverlay('appr-modal');
 }
@@ -1124,8 +1288,7 @@ function approveSwap(swapId,side){
   else{sw.bApproved=true;sw.status=sw.aApproved?'applied':'b-approved';}
   if(sw.status==='applied'){
     const tmp=rota.slots[sk(sw.pAId,sw.dayA)];
-    if(rota.slots[sk(sw.pBId,sw.dayB)])rota.slots[sk(sw.pAId,sw.dayA)]=rota.slots[sk(sw.pBId,sw.dayB)];
-    else delete rota.slots[sk(sw.pAId,sw.dayA)];
+    if(rota.slots[sk(sw.pBId,sw.dayB)])rota.slots[sk(sw.pAId,sw.dayA)]=rota.slots[sk(sw.pBId,sw.dayB)];else delete rota.slots[sk(sw.pAId,sw.dayA)];
     if(tmp)rota.slots[sk(sw.pBId,sw.dayB)]=tmp;else delete rota.slots[sk(sw.pBId,sw.dayB)];
     showToast(`✅ Swap #${sw.id} applied!`);
   }else{showToast(`${side==='a'?sw.pAName:sw.pBName} approved — waiting for other`);}
@@ -1134,100 +1297,41 @@ function approveSwap(swapId,side){
 function rejectSwap(swapId){const sw=swaps.find(s=>s.id===swapId);if(!sw)return;sw.status='rejected';closeM('appr-modal');render();showToast(`Swap #${swapId} rejected`);}
 function undoSwap(swapId){
   const sw=swaps.find(s=>s.id===swapId);if(!sw)return;
-  if(sw.status==='applied'){
-    if(sw.stA!=='–')rota.slots[sk(sw.pAId,sw.dayA)]=sw.stA;else delete rota.slots[sk(sw.pAId,sw.dayA)];
-    if(sw.stB!=='–')rota.slots[sk(sw.pBId,sw.dayB)]=sw.stB;else delete rota.slots[sk(sw.pBId,sw.dayB)];
-  }
+  if(sw.status==='applied'){if(sw.stA!=='–')rota.slots[sk(sw.pAId,sw.dayA)]=sw.stA;else delete rota.slots[sk(sw.pAId,sw.dayA)];if(sw.stB!=='–')rota.slots[sk(sw.pBId,sw.dayB)]=sw.stB;else delete rota.slots[sk(sw.pBId,sw.dayB)];}
   swaps=swaps.filter(s=>s.id!==swapId);render();showToast('Swap removed');
 }
-
 function renderSwapLog(){
   const el=document.getElementById('swap-entries');
   if(!swaps.length){el.innerHTML='<div style="padding:16px;text-align:center;color:var(--text3);font-size:13px">No swaps yet.</div>';return;}
   const spMap={pending:'sp-pending','a-approved':'sp-aapproved','b-approved':'sp-bapproved',applied:'sp-applied',rejected:'sp-rejected'};
-  el.innerHTML=swaps.slice().reverse().map(s=>`
-    <div class="swap-entry">
-      <div class="swap-entry-main">
-        <span class="swap-id">#${s.id}</span>
-        <span class="sw-name">${s.pAName}</span><span class="sw-day">${dayLbl(s.dayA)}</span>
-        <span style="color:var(--swap-text)">⇆</span>
-        <span class="sw-name">${s.pBName}</span><span class="sw-day">${dayLbl(s.dayB)}</span>
-        <span class="sp-pill ${spMap[s.status]||'sp-pending'}">${s.status.replace('-',' ')}</span>
-      </div>
-      <div class="swap-actions">
-        ${s.status!=='applied'&&s.status!=='rejected'?`<button class="btn btn-swap" style="font-size:11px;padding:4px 10px" onclick="openApproval(${s.id})">Approve</button>`:''}
-        <button class="btn-undo" onclick="undoSwap(${s.id})" title="Remove">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-    </div>`).join('');
+  el.innerHTML=swaps.slice().reverse().map(s=>`<div class="swap-entry"><div class="swap-entry-main"><span class="swap-id">#${s.id}</span><span class="sw-name">${s.pAName}</span><span class="sw-day">${dayLbl(s.dayA)}</span><span style="color:var(--swap-text)">⇆</span><span class="sw-name">${s.pBName}</span><span class="sw-day">${dayLbl(s.dayB)}</span><span class="sp-pill ${spMap[s.status]||'sp-pending'}">${s.status.replace('-',' ')}</span></div><div class="swap-actions">${s.status!=='applied'&&s.status!=='rejected'?`<button class="btn btn-swap" style="font-size:11px;padding:4px 10px" onclick="openApproval(${s.id})">Approve</button>`:''}<button class="btn-undo" onclick="undoSwap(${s.id})" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div></div>`).join('');
 }
 
-// ── Nav / Add / Export ────────────────────────────────────────
-function togglePanel(){document.getElementById('add-panel').classList.toggle('open');}
-function addMember(){
-  const name=document.getElementById('new-name').value.trim(),fn=document.getElementById('new-fn').value;
-  if(!name){showToast('Enter a name');return;}
-  rota.members.push({id:nextMId++,name,fn});
-  document.getElementById('new-name').value='';
-  document.getElementById('add-panel').classList.remove('open');
-  render();showToast(`${name} added`);
-}
+// ── Export ────────────────────────────────────────────────────
 function exportCSV(){
   const dates=view==='week'?wkDates(weekOffset):[];
   if(view==='month')monthWeeks(monthOffset).forEach(wk=>dates.push(...wk));
   const rows=[['Function','Name',...dates.map(d=>fmtD(d)),'WFH','WFO']];
-  rota.members.forEach(m=>{
-    const s=dates.map(d=>rota.slots[sk(m.id,fmtK(d))]||'');
-    rows.push([m.fn,m.name,...s,s.filter(x=>x==='WFH').length,s.filter(x=>x==='WFO').length]);
-  });
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'}));
-  a.download=`rota_${view}_${fmtK(new Date())}.csv`;a.click();showToast('Exported');
+  rota.members.forEach(m=>{const s=dates.map(d=>rota.slots[sk(m.id,fmtK(d))]||'');rows.push([m.fn,m.name,...s,s.filter(x=>x==='WFH').length,s.filter(x=>x==='WFO').length]);});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'}));a.download=`rota_${view}_${fmtK(new Date())}.csv`;a.click();showToast('Exported');
 }
-
-// ── ICS calendar export ──────────────────────────────────────
 function exportICS(){
-  const members = visibleMembers();
-  let dates = [];
-  if(view==='week') dates = wkDates(weekOffset);
-  else monthWeeks(monthOffset).forEach(wk=>dates.push(...wk));
-  const stamp = new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)+'Z';
-  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Beltone//Rota//EN','CALSCALE:GREGORIAN'];
-  let count = 0;
-  members.forEach(m => {
-    dates.forEach(d => {
-      const dk = fmtK(d), s = rota.slots[sk(m.id,dk)];
-      if(!s) return;
-      const dayStr = dk.replace(/-/g,'');
-      const next = new Date(d); next.setDate(next.getDate()+1);
-      const nextStr = fmtK(next).replace(/-/g,'');
-      lines.push(
-        'BEGIN:VEVENT',
-        `UID:rota-${m.id}-${dk}@beltone`,
-        `DTSTAMP:${stamp}`,
-        `DTSTART;VALUE=DATE:${dayStr}`,
-        `DTEND;VALUE=DATE:${nextStr}`,
-        `SUMMARY:${s} — ${m.name}`,
-        `DESCRIPTION:${m.fn} • ${s==='WFO'?'Work from office':'Work from home'}`,
-        'TRANSP:TRANSPARENT',
-        'END:VEVENT'
-      );
-      count++;
-    });
-  });
+  const members=visibleMembers();let dates=[];
+  if(view==='week')dates=wkDates(weekOffset);else monthWeeks(monthOffset).forEach(wk=>dates.push(...wk));
+  const stamp=new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)+'Z';
+  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Beltone//Rota//EN','CALSCALE:GREGORIAN'];
+  let count=0;
+  members.forEach(m=>{dates.forEach(d=>{const dk=fmtK(d),s=rota.slots[sk(m.id,dk)];if(!s)return;const dayStr=dk.replace(/-/g,'');const next=new Date(d);next.setDate(next.getDate()+1);const nextStr=fmtK(next).replace(/-/g,'');lines.push('BEGIN:VEVENT',`UID:rota-${m.id}-${dk}@beltone`,`DTSTAMP:${stamp}`,`DTSTART;VALUE=DATE:${dayStr}`,`DTEND;VALUE=DATE:${nextStr}`,`SUMMARY:${s} — ${m.name}`,`DESCRIPTION:${m.fn} • ${s==='WFO'?'Work from office':'Work from home'}`,'TRANSP:TRANSPARENT','END:VEVENT');count++;});});
   lines.push('END:VCALENDAR');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([lines.join('\r\n')],{type:'text/calendar'}));
-  a.download=`rota_${view}_${fmtK(new Date())}.ics`;a.click();
-  showToast(`Exported ${count} events`);
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lines.join('\r\n')],{type:'text/calendar'}));a.download=`rota_${view}_${fmtK(new Date())}.ics`;a.click();showToast(`Exported ${count} events`);
 }
 
-// ── Modal utils ───────────────────────────────────────────────
+// ── Utils ─────────────────────────────────────────────────────
 function showOverlay(id){document.getElementById(id).style.display='flex';}
 function closeM(id,e){if(e&&e.target!==e.currentTarget)return;document.getElementById(id).style.display='none';if(id==='edit-modal'){editTarget=null;editSt=null;}if(id==='del-modal'){delTarget=null;}}
 function tog(id,on){document.getElementById(id).classList.toggle('show',on);}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){['edit-modal','del-modal','copy-modal','swap-modal','appr-modal'].forEach(id=>{const el=document.getElementById(id);if(el.style.display!=='none')closeM(id);});}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){['edit-modal','del-modal','copy-modal','swap-modal','appr-modal','manage-modal','edit-member-modal','edit-fn-modal','del-fn-modal'].forEach(id=>{const el=document.getElementById(id);if(el&&el.style.display!=='none')closeM(id);});}});
 
 if(!loadPersisted()) seed();
 render();
