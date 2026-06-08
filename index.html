@@ -855,24 +855,72 @@ function openStatsModal(){
   showOverlay('stats-modal');
 }
 
-// ── Persistence ──────────────────────────────────────────────
-const STORAGE_KEY = 'rota-data-v2';
-function persist(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({members:rota.members, slots:rota.slots, swaps, swapNextId, nextMId, fnFilter, functions:rota.functions})); }catch(e){}
+// ── Firebase Persistence ──────────────────────────────────────
+let firebaseReady = false;
+let isRemoteRender = false;
+
+function renderOnly(){
+  updatePeriodLabel(); 
+  refreshFnFilter(); 
+  refreshFnSelect('new-fn');
+  if(view==='week') renderWeek(); 
+  else renderMonth();
+  renderStats(); 
+  renderSwapLog();
 }
-function loadPersisted(){
+
+async function persist(){
+  if(!firebaseReady || isRemoteRender) return;
+
   try{
-    const raw = localStorage.getItem(STORAGE_KEY); if(!raw) return false;
-    const d = JSON.parse(raw);
+    await setDoc(doc(db, "teamRota", "main"), {
+      members: rota.members,
+      slots: rota.slots,
+      swaps,
+      swapNextId,
+      nextMId,
+      fnFilter,
+      functions: rota.functions
+    });
+  }catch(e){
+    console.error("Firebase save error:", e);
+  }
+}
+
+function startLiveSync(){
+  onSnapshot(doc(db, "teamRota", "main"), (snapshot) => {
+    if(!snapshot.exists()){
+      seed();
+      renderOnly();
+      persist();
+      return;
+    }
+
+    
+
+    const d = snapshot.data();
+
+    // First run when Firestore only contains test data
+
+    if(!d.members && !d.slots){
+     seed();
+     renderOnly();
+     persist();
+     return;
+    }
+
     if(d.members) rota.members = d.members;
     if(d.slots) rota.slots = d.slots;
     if(d.swaps) swaps = d.swaps;
     if(d.swapNextId) swapNextId = d.swapNextId;
     if(d.nextMId) nextMId = d.nextMId;
-    if(d.fnFilter) fnFilter = d.fnFilter;
+    if(d.fnFilter !== undefined) fnFilter = d.fnFilter;
     if(d.functions) rota.functions = d.functions;
-    return true;
-  }catch(e){ return false; }
+
+    isRemoteRender = true;
+    renderOnly();
+    isRemoteRender = false;
+  });
 }
 
 // ── Theme & compact ──────────────────────────────────────────
@@ -1380,8 +1428,17 @@ function tog(id,on){document.getElementById(id).classList.toggle('show',on);}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){['edit-modal','del-modal','copy-modal','swap-modal','appr-modal','manage-modal','edit-member-modal','edit-fn-modal','del-fn-modal'].forEach(id=>{const el=document.getElementById(id);if(el&&el.style.display!=='none')closeM(id);});}});
 
-if(!loadPersisted()) seed();
-render();
+function bootFirebase(){
+  if(window.db && window.doc && window.setDoc && window.onSnapshot){
+    firebaseReady = true;
+    startLiveSync();
+  } else {
+    setTimeout(bootFirebase, 50);
+  }
+}
+
+bootFirebase();
+
 </script>
 </body>
 </html>
