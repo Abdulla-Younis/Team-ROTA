@@ -647,6 +647,53 @@ body.bulk-mode .slot,body.bulk-mode .month-slot{cursor:cell}
   <button class="bb-close" onclick="exitBulk()" title="Exit">✕</button>
 </div>
 
+
+
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDL_OQafhpPaelDekR0B7HFhST1R42nO7M",
+  authDomain: "beltone-rota.firebaseapp.com",
+  projectId: "beltone-rota",
+  storageBucket: "beltone-rota.firebasestorage.app",
+  messagingSenderId: "489470181451",
+  appId: "1:489470181451:web:3f8de70491f7dc6ed50dce",
+  measurementId: "G-NMQYMDB60S"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Make Firebase available globally
+window.db = db;
+window.doc = doc;
+window.getDoc = getDoc;
+window.setDoc = setDoc;
+window.onSnapshot = onSnapshot;
+
+console.log("Firebase connected successfully");
+</script>
+
+
+
+
+
+
+
+
+
+
+
 <script>
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday'];
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
